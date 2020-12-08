@@ -7,7 +7,7 @@ COPY VirtPub/*.csproj ./VirtPub/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY VirtPub/
+COPY VirtPub/ ./VirtPub
 WORKDIR /app/VirtPub
 RUN dotnet publish -c Release -o out
 
