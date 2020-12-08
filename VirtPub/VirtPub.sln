@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtPub", "VirtPub.csproj", "{7E530B21-EA20-457B-8AE5-763AA804E2DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4810D36C-1643-4E9B-AAEB-7C1B8376DAF4}
+	EndGlobalSection
+EndGlobal
