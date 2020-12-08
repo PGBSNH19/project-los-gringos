@@ -370,4 +370,9 @@ MigrationBackup/
 
 appsettings.json
 
+# VS Code Folder
+**/.vscode/
+
+# Local History for Visual Studio Code
+.history/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
