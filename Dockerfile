@@ -1,17 +1,14 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build-env
+
 WORKDIR /app
 
-# copy csproj and restore as distinct layers
-COPY *.sln .
-COPY aspnetapp/*.csproj ./aspnetapp/
+COPY *.csproj ./
 RUN dotnet restore
 
-# copy everything else and build app
-COPY aspnetapp/. ./aspnetapp/
-WORKDIR /app/aspnetapp
+COPY . ./
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:5.0 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:5.0
 WORKDIR /app
-COPY --from=build /app/aspnetapp/out ./
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "VirtPub.dll"]
