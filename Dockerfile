@@ -14,4 +14,4 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:5.0-buster AS runtime
 WORKDIR /app
 COPY --from=build /app/aspnetapp/out ./
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+ENTRYPOINT ["dotnet", "VirtPub.dll"]
