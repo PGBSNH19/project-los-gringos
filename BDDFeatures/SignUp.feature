@@ -4,5 +4,5 @@
         And Enter a walid email.
         And Enter a valid password.
         And confirms the password.
-        And Presses save.
+        When Presses save.
         Then The user account will be created.
