@@ -49,7 +49,6 @@
     The table owner is choosing which link/game to use
 - Chat for this table
     This chat is only open for peoples at the table
-- Button symbolizing if the user is playing, or just sitting at the table.
 - Scoreboard
     The scoreboard is handled by the table owner, and it's lifecycle is
     depending on the session of the current table.
@@ -66,5 +65,3 @@ to not burden the servers.
 
 - Name
 - Picture
-- Overall score
-    So if a user wins a session hens overall score is incremented with 1.
