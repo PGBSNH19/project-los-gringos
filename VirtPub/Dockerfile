@@ -2,10 +2,10 @@
 
 WORKDIR /app
 
-COPY VirtPub/*.csproj ./VirtPub
+COPY *.csproj ./
 RUN dotnet restore
 
-COPY ./VirtPub ./VirtPub
+COPY . ./
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0
