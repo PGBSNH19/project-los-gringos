@@ -368,13 +368,11 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-appsettings.json
-
 # VS Code Folder
 **/.vscode/
 
 # Local History for Visual Studio Code
 .history/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
-VirtPub/appsettings.Development.json
+appsettings.Development.json
 VirtPub/appsettings.Development.json
