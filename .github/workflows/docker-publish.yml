@@ -29,17 +29,17 @@ jobs:
             docker build VirtPub/ -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/virtpubregistry:latest
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/virtpubregistry:latest
 
-    - name: 'Deploy to Azure Container Instances'
-      uses: 'azure/aci-deploy@v1'
-      with:
-            resource-group: ${{ secrets.RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-            image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/virtpubregistry:latest
-            registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-            registry-username: ${{ secrets.REGISTRY_USERNAME }}
-            registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-            name: grupp3-losgringos
-            location: 'North Europe'
+    # - name: 'Deploy to Azure Container Instances'
+    #   uses: 'azure/aci-deploy@v1'
+    #   with:
+    #         resource-group: ${{ secrets.RESOURCE_GROUP }}
+    #         dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+    #         image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/virtpubregistry:latest
+    #         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+    #         registry-username: ${{ secrets.REGISTRY_USERNAME }}
+    #         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+    #         name: grupp3-losgringos
+    #         location: 'North Europe'
         
 
     - name: 'Build and push backend image'
@@ -52,14 +52,14 @@ jobs:
             docker build VertPub.Backend/ -t ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
 
-    - name: 'Deploy to Azure Container Instances'
-      uses: 'azure/aci-deploy@v1'
-      with:
-            resource-group: ${{ secrets.RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}backend
-            image: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
-            registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
-            registry-username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
-            registry-password: ${{ secrets.REGISTRY_PASSWORD_BACKEND }}
-            name: grupp3-losgringos-backend
-            location: 'North Europe'
+    # - name: 'Deploy to Azure Container Instances'
+    #   uses: 'azure/aci-deploy@v1'
+    #   with:
+    #         resource-group: ${{ secrets.RESOURCE_GROUP }}
+    #         dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}backend
+    #         image: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
+    #         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
+    #         registry-username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
+    #         registry-password: ${{ secrets.REGISTRY_PASSWORD_BACKEND }}
+    #         name: grupp3-losgringos-backend
+    #         location: 'North Europe'
