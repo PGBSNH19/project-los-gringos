@@ -1,0 +1,31 @@
+.modal {
+  position: fixed;
+  top: auto;
+  right: 0;
+  left: auto;
+  bottom: 0;
+  width: 300px;
+  max-height: 45%;
+  display: block;
+}
+
+.modal-content {
+  position: fixed;
+  top: auto;
+  right: 0;
+  left: auto;
+  bottom: 0;
+  width: 300px;
+  max-height: 45%;
+  word-wrap: break-word;
+}
+
+.modal-body {
+  overflow-y: auto;
+}
+
+.modal-header {
+  max-height: 40px;
+  font-size: 12px;
+  color:  #0366d6;
+}
