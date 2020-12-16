@@ -56,7 +56,7 @@ jobs:
       uses: 'azure/aci-deploy@v1'
       with:
             resource-group: ${{ secrets.RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}backend
             image: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
             registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
             registry-username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
