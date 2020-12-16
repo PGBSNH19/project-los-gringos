@@ -3,6 +3,8 @@ name: Docker
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -38,83 +40,24 @@ jobs:
             location: 'North Europe'
         
 
-    - name: 'Build and push backend image'
-      uses: azure/docker-login@v1
-      with:
-            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
-            username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
-            password: ${{ secrets.REGISTRY_PASSWORD_BACKEND }}
-    - run: |
-            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest --file ./VertPub.Backend/Dockerfile
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
+    # - name: 'Build and push backend image'
+    #   uses: azure/docker-login@v1
+    #   with:
+    #         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
+    #         username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
+    #         password: ${{ secrets.REGISTRY_PASSWORD_BACKEND }}
+    # - run: |
+    #         docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest --file ./VertPub.Backend/Dockerfile
+    #         docker push ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
 
-    - name: 'Deploy to Azure Container Instances'
-      uses: 'azure/aci-deploy@v1'
-      with:
-            resource-group: ${{ secrets.RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-            image: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
-            registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
-            registry-username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
-            registry-password: ${{ secrets.REGISTRY_PASSWORD_BACKEND }}
-            name: grupp3-losgringos-backend
-            location: 'North Europe'
-
-
-# jobs:
-#   # Run tests.
-#   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-#   test:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v2
-
-#       - name: Run tests
-#         run: |
-#           if [ -f docker-compose.test.yml ]; then
-#             docker-compose --file docker-compose.test.yml build
-#             docker-compose --file docker-compose.test.yml run sut
-#           else
-#             docker build . --file Dockerfile
-#           fi
-
-#   # Push image to GitHub Packages.
-#   # See also https://docs.docker.com/docker-hub/builds/
-#   push:
-#     # Ensure test job passes before pushing image.
-#     needs: test
-
-#     runs-on: ubuntu-latest
-#     if: github.event_name == 'push'
-
-#     steps:
-#       - uses: actions/checkout@v2
-
-#       - name: Build image
-#         run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
-#       - name: Log into registry
-#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-#       - name: Push image
-#         run: |
-#           IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-
-#           # Change all uppercase to lowercase
-#           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-#           # Strip git ref prefix from version
-#           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-#           # Strip "v" prefix from tag name
-#           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-#           # Use Docker `latest` tag convention
-#           [ "$VERSION" == "main" ] && VERSION=latest
-
-#           echo IMAGE_ID=$IMAGE_ID
-#           echo VERSION=$VERSION
-
-#           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-#           docker push $IMAGE_ID:$VERSION
+    # - name: 'Deploy to Azure Container Instances'
+    #   uses: 'azure/aci-deploy@v1'
+    #   with:
+    #         resource-group: ${{ secrets.RESOURCE_GROUP }}
+    #         dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+    #         image: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}/virtpubregistrybackend:latest
+    #         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_BACKEND }}
+    #         registry-username: ${{ secrets.REGISTRY_USERNAME_BACKEND }}
+    #         registry-password: ${{ secrets.REGISTRY_PASSWORD_BACKEND }}
+    #         name: grupp3-losgringos-backend
+    #         location: 'North Europe'
