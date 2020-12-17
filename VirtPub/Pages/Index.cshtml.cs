@@ -23,5 +23,9 @@ namespace VirtPub.Pages
         {
 
         }
+
+        public void OnPost()
+        {
+        }
     }
 }

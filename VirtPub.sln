@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VertPub.Backend", "VertPub.Backend\VertPub.Backend.csproj", "{D6F2E039-9469-4D71-BC5D-10E2059AD203}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VertPub.Backend", "VertPub.Backend\VertPub.Backend.csproj", "{D6F2E039-9469-4D71-BC5D-10E2059AD203}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtPup.Test", "VirtPup.Test\VirtPup.Test.csproj", "{37F334C6-C281-4422-98A2-97BE153D015C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtPup.Test", "VirtPup.Test\VirtPup.Test.csproj", "{37F334C6-C281-4422-98A2-97BE153D015C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtPub", "VirtPub\VirtPub.csproj", "{144FDD7D-211A-46AE-B33F-E6752320B198}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtPub", "VirtPub\VirtPub.csproj", "{144FDD7D-211A-46AE-B33F-E6752320B198}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E530B21-EA20-457B-8AE5-763AA804E2DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA9881E2-2553-44BB-82BA-4A2327D24BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA9881E2-2553-44BB-82BA-4A2327D24BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA9881E2-2553-44BB-82BA-4A2327D24BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA9881E2-2553-44BB-82BA-4A2327D24BF4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{023BEA62-13E8-4A23-905A-BDCA12F2F9CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{023BEA62-13E8-4A23-905A-BDCA12F2F9CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{023BEA62-13E8-4A23-905A-BDCA12F2F9CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{023BEA62-13E8-4A23-905A-BDCA12F2F9CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6F2E039-9469-4D71-BC5D-10E2059AD203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D6F2E039-9469-4D71-BC5D-10E2059AD203}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6F2E039-9469-4D71-BC5D-10E2059AD203}.Release|Any CPU.ActiveCfg = Release|Any CPU
