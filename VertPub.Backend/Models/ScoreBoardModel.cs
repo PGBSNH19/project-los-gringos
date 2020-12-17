@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace VertPub.Backend.Models
 {
-    public class ScoreBoard
+    public class ScoreBoardModel
     {
         public GameLinksModel game { get; set; }
         public Guid id { get; set; }

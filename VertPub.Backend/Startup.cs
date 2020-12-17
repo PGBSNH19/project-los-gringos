@@ -39,6 +39,7 @@ namespace VertPub.Backend
         
             services.AddScoped<IGameLinksRepo, GameLinksRepo>();
             services.AddScoped<ITableRepo, TableRepo>();
+            services.AddScoped<IScoreBoardRepo, ScoreBoardRepo>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
