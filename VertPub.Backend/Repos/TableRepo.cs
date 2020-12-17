@@ -25,7 +25,7 @@ namespace VertPub.Backend.Repos
         {
             _context.Tables.Add(table);
             var result = await _context.SaveChangesAsync();
-            if (result < 0)
+            if (result <= 0)
             {
                 return "something went wrong";
             }
