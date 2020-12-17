@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using VertPub.Backend.Context;
 using VertPub.Backend.Repos;
@@ -33,7 +34,11 @@ namespace VertPub.Backend
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultBackendConnection"));
             });
+
+           
+        
             services.AddScoped<IGameLinksRepo, GameLinksRepo>();
+            services.AddScoped<ITableRepo, TableRepo>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
