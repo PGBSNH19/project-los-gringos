@@ -13,20 +13,5 @@
 </div>
 
 <button onclick="window.location.href = '@Url.Page("PrivateTable")'">Generate private table</button>
-<div class="modal" id="ModalWindow">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" id="MinimizeChat">Minimize chat window</div>
 
-            <div class="modal-body" id="ChatWindow"></div>
-
-            <div class="modal-footer" id="ModalFooter">
-                <input class="col-7" type="text" id="messageInput" placeholder="Write something" maxlength="200" />
-                <input type="button" id="sendButton" value="Send Message" />
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+<partial name="_ChatModalLobbyPartial" />

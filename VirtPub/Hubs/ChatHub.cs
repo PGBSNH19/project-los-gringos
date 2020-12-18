@@ -17,7 +17,6 @@ namespace VirtPub.Hubs
         {
             string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             await Clients.All.SendAsync("ReceiveMessage", userName, message);
-            await AddUserToGroup();
         }
 
         public async Task AddUserToGroup()
