@@ -14,4 +14,19 @@
 
 <button onclick="window.location.href = '@Url.Page("PrivateTable")'">Generate private table</button>
 
-<partial name="_ChatModalLobbyPartial" />
+@foreach (var item in Model.games)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@item.name</h5>
+            <h6>Min Players: @item.minPlayers</h6>
+            <h6>Max Players: @item.minPlayers</h6>
+            <p class="card-text">beskrivning om spelet placeholder</p>
+            <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">var Group = "lobby"</script>
+
+<partial name="_ChatModalPartial" />
