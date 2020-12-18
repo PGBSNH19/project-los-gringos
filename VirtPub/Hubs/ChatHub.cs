@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
-using System;
 using System.Threading.Tasks;
 
 namespace VirtPub.Hubs
@@ -19,6 +17,13 @@ namespace VirtPub.Hubs
         {
             string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             await Clients.All.SendAsync("ReceiveMessage", userName, message);
+            await AddUserToGroup();
+        }
+
+        public async Task AddUserToGroup()
+        {
+            string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            await Groups.AddToGroupAsync(Context.ConnectionId, "Table1");
         }
     }
 }
