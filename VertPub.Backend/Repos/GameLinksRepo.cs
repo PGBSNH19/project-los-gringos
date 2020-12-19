@@ -34,5 +34,10 @@ namespace VertPub.Backend.Repos
             return "Somthing went wrong game not created";
         }
 
+        public async Task<GameLinksModel> GetGameById(string id)
+        {
+            var game = await _context.GameLinks.FirstOrDefaultAsync(x => x.id.ToString() == id);
+            return game;
+        }
     }
 }

@@ -21,11 +21,26 @@ namespace VertPub.Backend.Controllers
         }
 
         [HttpGet]
+        [Route("GetTableById")]
+        public async Task<ActionResult<List<GameLinksModel>>> GetTableById(string id)
+        {
+            var result = await _repo.GetTableById(id);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("GetTablesLinkedToGame")]
+        public async Task<ActionResult<List<TableModel>>> GetTablesLinkedToGame(string id)
+        {
+            var result = await _repo.GetTablesLinkedToGame(id);
+            return Ok(result);
+        }
+
+        [HttpGet]
         public async Task<ActionResult<List<TableModel>>> GetAllTables()
         {
             var result = await _repo.GetAllTables();
             return Ok(result);
-
         }
 
         [HttpPost]

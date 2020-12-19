@@ -14,15 +14,24 @@
 
 <button onclick="window.location.href = '@Url.Page("PrivateTable")'">Generate private table</button>
 
-@foreach (var item in Model.games)
+@foreach (var game in Model.Games)
 {
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">@item.name</h5>
-            <h6>Min Players: @item.minPlayers</h6>
-            <h6>Max Players: @item.minPlayers</h6>
+            <h5 class="card-title">@game.name</h5>
+            <h6>Min Players: @game.minPlayers</h6>
+            <h6>Max Players: @game.maxPlayers</h6>
             <p class="card-text">beskrivning om spelet placeholder</p>
-            <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a>
+            
+            @{
+            var selectedGameId = new Dictionary<string, string>
+                        {
+                            { "id", game.id.ToString() }
+                        };
+            }
+
+            @* <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a> *@
+            <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-primary">Go To Public Game</a>
         </div>
     </div>
 }

@@ -8,5 +8,7 @@ namespace VertPub.Backend.Repos
     {
         Task<string> CreateTable(TableModel table);
         Task<List<TableModel>> GetAllTables();
+        Task<List<TableModel>> GetTablesLinkedToGame(string id);
+        Task<TableModel> GetTableById(string id);
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace VirtPub.Models
 {
-    public class GameModel
+    public class GameLinksModel
     {
         public Guid id { get; set; }
         public string link { get; set; }

@@ -22,9 +22,18 @@ namespace VertPub.Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GameLinksModel>>> GetAllGames()
         {
-            var resault = await _repo.GetAllGames();
-            return Ok(resault);
+            var result = await _repo.GetAllGames();
+            return Ok(result);
         }
+
+        [HttpGet]
+        [Route("GetGameById")]
+        public async Task<ActionResult<List<GameLinksModel>>> GetGameById(string id)
+        {
+            var result = await _repo.GetGameById(id);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<GameLinksModel>> AddGame([FromBody] GameLinksModel game)
         {

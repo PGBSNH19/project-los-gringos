@@ -13,7 +13,7 @@ namespace VirtPub.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly GameService _service;
-        public IEnumerable<GameModel> games = new List<GameModel>();
+        public IEnumerable<GameLinksModel> Games = new List<GameLinksModel>();
 
 
         public IndexModel(ILogger<IndexModel> logger, GameService service)
@@ -24,7 +24,7 @@ namespace VirtPub.Pages
 
         public async Task OnGet()
         {
-            games = await _service.GetGames();
+            Games = await _service.GetGames();
         }
 
         public void OnPost()

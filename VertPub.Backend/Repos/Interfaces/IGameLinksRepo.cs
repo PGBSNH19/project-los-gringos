@@ -8,5 +8,6 @@ namespace VertPub.Backend.Repos
     {
         Task<string> AddGame(GameLinksModel game);
         Task<List<GameLinksModel>> GetAllGames();
+        Task<GameLinksModel> GetGameById(string id);
     }
 }
