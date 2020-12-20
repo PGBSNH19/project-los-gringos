@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using VirtPub.Models;
 
 namespace VirtPub.Services
@@ -12,12 +13,15 @@ namespace VirtPub.Services
     public class GameService
     {
         public HttpClient Client { get; }
+        private readonly IConfiguration _configuration;
 
-        public GameService(HttpClient client)
+        public GameService(HttpClient client, IConfiguration configuration)
         {
-            client.BaseAddress = new Uri("https://pubtesterbackend.azurewebsites.net/");
-            // client.BaseAddress = new Uri("https://localhost:4001/");
+            _configuration = configuration;
             Client = client;
+
+            var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
+            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
         }
 
         public async Task<GameLinksModel> GetGameById(string id)

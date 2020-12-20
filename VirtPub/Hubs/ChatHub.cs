@@ -25,10 +25,10 @@ namespace VirtPub.Hubs
             await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", _httpContextAccessor.HttpContext.User.Identity.Name, "Has joined");
         }
 
-        public async Task RemoveUserFromGroup(string group)
+        public Task RemoveUserFromGroup(string group)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
-            await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", _httpContextAccessor.HttpContext.User.Identity.Name, "left");
+            Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", _httpContextAccessor.HttpContext.User.Identity.Name, "left");
+            return Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
         }
     }
 }
