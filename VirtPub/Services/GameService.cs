@@ -30,7 +30,7 @@ namespace VirtPub.Services
                 $"api/v1.0/GameLinks/GetGameByid?id={id}");
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            
+
             return await JsonSerializer.DeserializeAsync
                 <GameLinksModel>(responseStream);
         }
@@ -41,7 +41,7 @@ namespace VirtPub.Services
                 "api/v1.0/GameLinks");
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            
+
             return await JsonSerializer.DeserializeAsync
                 <IEnumerable<GameLinksModel>>(responseStream);
         }
@@ -52,7 +52,7 @@ namespace VirtPub.Services
                 $"api/v1.0/Table/GetTableById?id={id}");
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            
+
             return await JsonSerializer.DeserializeAsync
                 <TableModel>(responseStream);
         }
@@ -63,7 +63,7 @@ namespace VirtPub.Services
                 $"api/v1.0/Table/GetTablesLinkedToGame?id={id}");
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            
+
             return await JsonSerializer.DeserializeAsync
                 <IEnumerable<TableModel>>(responseStream);
         }
@@ -74,7 +74,7 @@ namespace VirtPub.Services
                 "api/v1.0/Table");
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            
+
             return await JsonSerializer.DeserializeAsync
                 <IEnumerable<TableModel>>(responseStream);
         }
@@ -88,7 +88,7 @@ namespace VirtPub.Services
 
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(table);
             var data = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
-            
+
             var response = await Client.PostAsync(
                 "api/v1.0/Table", data);
 
