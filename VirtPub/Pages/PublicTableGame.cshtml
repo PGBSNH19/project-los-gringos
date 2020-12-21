@@ -1,0 +1,38 @@
+@page
+@model PublicTableGameModel
+@{
+}
+
+<head>
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
+</head>
+
+@* 
+@foreach (var table in Model.Tables)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@table.id</h5>
+            
+            @{
+            var selectedTableId = new Dictionary<string, string>
+                        {
+                            { "id", table.id.ToString() }
+                        };
+            }
+
+            <a asp-page="/PublicTableGame" asp-all-route-data="selectedTableId" class="btn btn-primary">Go To Table</a>
+        </div>
+    </div>
+} *@
+
+@* 
+<h5>@Model.Game.id</h5>
+<h5>@Model.Game.name</h5>
+<h5>@Model.Game.maxPlayers</h5>
+<h5>@Model.Game.minPlayers</h5>
+<h5>@Model.Game.link</h5> *@
+
+<script type="text/javascript">var Group ="@Model.Table.id"</script>
+
+<partial name="_ChatModalPartial" />

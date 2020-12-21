@@ -10,8 +10,8 @@ using VertPub.Backend.Context;
 namespace VertPub.Backend.Migrations
 {
     [DbContext(typeof(VirtpubContext))]
-    [Migration("20201217085216_firstmigration")]
-    partial class firstmigration
+    [Migration("20201219094403_AddedGameLinkToTableModel")]
+    partial class AddedGameLinkToTableModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,12 @@ namespace VertPub.Backend.Migrations
                     b.Property<string>("link")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("maxPlayers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("minPlayers")
+                        .HasColumnType("int");
+
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -38,14 +44,14 @@ namespace VertPub.Backend.Migrations
                     b.ToTable("GameLinks");
                 });
 
-            modelBuilder.Entity("VertPub.Backend.Models.ScoreBoard", b =>
+            modelBuilder.Entity("VertPub.Backend.Models.ScoreBoardModel", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("game")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("gameid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("player")
                         .HasColumnType("nvarchar(max)");
@@ -54,6 +60,8 @@ namespace VertPub.Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("gameid");
 
                     b.ToTable("ScoreBoards");
                 });
@@ -64,12 +72,35 @@ namespace VertPub.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("gameid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("isPrivate")
                         .HasColumnType("bit");
 
                     b.HasKey("id");
 
+                    b.HasIndex("gameid");
+
                     b.ToTable("Tables");
+                });
+
+            modelBuilder.Entity("VertPub.Backend.Models.ScoreBoardModel", b =>
+                {
+                    b.HasOne("VertPub.Backend.Models.GameLinksModel", "game")
+                        .WithMany()
+                        .HasForeignKey("gameid");
+
+                    b.Navigation("game");
+                });
+
+            modelBuilder.Entity("VertPub.Backend.Models.TableModel", b =>
+                {
+                    b.HasOne("VertPub.Backend.Models.GameLinksModel", "game")
+                        .WithMany()
+                        .HasForeignKey("gameid");
+
+                    b.Navigation("game");
                 });
 #pragma warning restore 612, 618
         }

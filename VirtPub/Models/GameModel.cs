@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
-namespace VertPub.Backend.Models
+namespace VirtPub.Models
 {
     public class GameLinksModel
     {
-        [Key]
         public Guid id { get; set; }
         public string link { get; set; }
         public string name { get; set; }

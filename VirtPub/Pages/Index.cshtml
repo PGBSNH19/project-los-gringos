@@ -5,7 +5,7 @@
 }
 
 <head>
-    <link rel="stylesheet" href="css/index.css" type="text/css" />
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
 </head>
 
 <div class="text-center">
@@ -13,20 +13,29 @@
 </div>
 
 <button onclick="window.location.href = '@Url.Page("PrivateTable")'">Generate private table</button>
-<div class="modal" id="ModalWindow">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" id="MinimizeChat">Minimize chat window</div>
 
-            <div class="modal-body" id="ChatWindow"></div>
+@foreach (var game in Model.Games)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@game.name</h5>
+            <h6>Min Players: @game.minPlayers</h6>
+            <h6>Max Players: @game.maxPlayers</h6>
+            <p class="card-text">beskrivning om spelet placeholder</p>
+            
+            @{
+            var selectedGameId = new Dictionary<string, string>
+                        {
+                            { "id", game.id.ToString() }
+                        };
+            }
 
-            <div class="modal-footer" id="ModalFooter">
-                <input class="col-7" type="text" id="messageInput" placeholder="Write something" maxlength="200" />
-                <input type="button" id="sendButton" value="Send Message" />
-            </div>
+            @* <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a> *@
+            <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-primary">Go To Public Game</a>
         </div>
     </div>
-</div>
+}
 
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+<script type="text/javascript">var Group = "lobby"</script>
+
+<partial name="_ChatModalPartial" />

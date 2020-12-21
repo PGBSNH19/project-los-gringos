@@ -15,6 +15,7 @@ connection.on("ReceiveMessage", function (user, message) {
 });
 
 connection.start().then(function () {
+    connection.invoke("AddUserToGroup", Group);
     document.getElementById("sendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
@@ -58,7 +59,7 @@ function SendChatMessage(){
     else {
         document.getElementById("messageInput").placeholder = "Write something"
         document.getElementById("messageInput").value = "";
-        connection.invoke("SendMessageToLobby", message).catch(function (err) {
+        connection.invoke("SendMessageToGroup", message, Group).catch(function (err) {
             return console.error(err.toString());
         });
     }
@@ -68,3 +69,7 @@ function updateScroll(){
     var element = document.getElementById("ChatWindow");
     element.scrollTop = element.scrollHeight;
 };
+
+window.onunload(function () {
+    connection.invoke("RemoveUserFromGroup", Group);
+});

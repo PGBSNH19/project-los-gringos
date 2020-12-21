@@ -28,6 +28,12 @@ namespace VertPub.Backend.Migrations
                     b.Property<string>("link")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("maxPlayers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("minPlayers")
+                        .HasColumnType("int");
+
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -64,15 +70,29 @@ namespace VertPub.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("gameid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("isPrivate")
                         .HasColumnType("bit");
 
                     b.HasKey("id");
 
+                    b.HasIndex("gameid");
+
                     b.ToTable("Tables");
                 });
 
             modelBuilder.Entity("VertPub.Backend.Models.ScoreBoardModel", b =>
+                {
+                    b.HasOne("VertPub.Backend.Models.GameLinksModel", "game")
+                        .WithMany()
+                        .HasForeignKey("gameid");
+
+                    b.Navigation("game");
+                });
+
+            modelBuilder.Entity("VertPub.Backend.Models.TableModel", b =>
                 {
                     b.HasOne("VertPub.Backend.Models.GameLinksModel", "game")
                         .WithMany()

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VirtPub.Data;
 using VirtPub.Hubs;
+using VirtPub.Services;
 
 namespace VirtPub
 {
@@ -38,6 +39,7 @@ namespace VirtPub
             services.AddRazorPages();
             services.AddSignalR();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClient<GameService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
