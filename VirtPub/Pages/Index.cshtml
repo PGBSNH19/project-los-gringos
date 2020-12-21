@@ -12,8 +12,8 @@
     <h2 class="display-4">Welcome to our pub!</h2>
 </div>
 
-<button onclick="window.location.href = '@Url.Page("PrivateTable")'">Generate private table</button>
-
+@*<button onclick="window.location.href = '@Url.Page("PrivateTable/@Model.Id")'">Generate private table</button>*@
+<a asp-page="/PublicTable/@Model.Id" class="btn btn-primary"> Create Private table</a>
 @foreach (var game in Model.Games)
 {
     <div class="card" style="width: 18rem;">

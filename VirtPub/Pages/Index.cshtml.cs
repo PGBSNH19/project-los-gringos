@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VirtPub.Models;
@@ -13,6 +15,8 @@ namespace VirtPub.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly GameService _service;
+        [BindProperty]
+        public Guid Id { get; set; }
         public IEnumerable<GameLinksModel> Games = new List<GameLinksModel>();
 
 
@@ -29,6 +33,7 @@ namespace VirtPub.Pages
 
         public void OnPost()
         {
+            Id= Guid.NewGuid();
         }
     }
 }
