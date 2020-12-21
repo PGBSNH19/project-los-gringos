@@ -11,7 +11,8 @@ function inviteLink() {
         range.selectNode(inviteLink);
         window.getSelection().addRange(range);
 
+
+        document.execCommand('copy');
         window.getSelection().removeAllRanges();
     });
 }
-

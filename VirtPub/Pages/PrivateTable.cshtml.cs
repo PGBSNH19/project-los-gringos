@@ -17,16 +17,16 @@ namespace VirtPub.Pages
         public string Text { get; set; }
         public void OnGet()
         {
-          Text = GetUrl();
+
         }
 
 
 
-        public string GetUrl()
-        {
-            var hostPath = HttpContext.Request.Host.ToString();
-            var path = HttpContext.Request.Path.ToString();
-            return hostPath + path;
-        }
+        //public string GetUrl()
+        //{
+        //    var hostPath = HttpContext.Request.Host.ToString();
+        //    var path = HttpContext.Request.Path.ToString();
+        //    return hostPath + path;
+        //}
     }
 }
