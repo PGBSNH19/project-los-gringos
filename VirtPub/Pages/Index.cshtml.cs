@@ -29,6 +29,7 @@ namespace VirtPub.Pages
         public async Task OnGet()
         {
             Games = await _service.GetGames();
+            //Games= null;
         }
 
         public void OnPost()
