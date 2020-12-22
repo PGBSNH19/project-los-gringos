@@ -32,9 +32,14 @@ namespace VirtPub.Pages
             //Games= null;
         }
 
-        public void OnPost()
+        //public void OnPost()
+        //{
+        //    Id= Guid.NewGuid();
+        //}
+
+        public IActionResult OnPost()
         {
-            Id= Guid.NewGuid();
+            return RedirectToPage("/PrivateTable", new {Id = Guid.NewGuid()});
         }
     }
 }

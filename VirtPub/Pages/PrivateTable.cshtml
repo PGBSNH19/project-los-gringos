@@ -3,6 +3,10 @@
 @{
 }
 
+<head>
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
+</head>
+
 <h1>Hi this is a private table</h1>
 
 @*TODO: Move css to separate css file*@
@@ -12,5 +16,10 @@
 </div>
 
 
-
 <script src ="~/js/copyToClipboard.js"></script>
+
+<script type="text/javascript">
+    var Group = "@Model.Id.ToString()";
+</script>
+
+<partial name="_ChatModalPartial" />
