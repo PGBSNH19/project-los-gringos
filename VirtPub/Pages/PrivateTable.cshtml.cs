@@ -14,10 +14,17 @@ namespace VirtPub.Pages
     public class PrivateTableModel : PageModel
     {
         [BindProperty]
-        public string Text { get; set; }
-        public void OnGet()
+        public Guid TableId { get; set; }
+        public void OnGet(Guid tableId)
         {
-
+            if (tableId == Guid.Empty)
+            {
+                TableId = Guid.NewGuid();
+            }
+            else
+            {
+                TableId = tableId;
+            }
         }
 
 

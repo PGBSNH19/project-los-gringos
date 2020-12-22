@@ -12,7 +12,10 @@
     <h2 class="display-4">Welcome to our pub!</h2>
 </div>
 
-<button onclick="window.location.href = '@Url.Page("PrivateTable")'">Generate private table</button>
+
+<a asp-page="/PrivateTable" class="btn btn-primary">Create private table</a>
+
+<hr \>
 
 @foreach (var game in Model.Games)
 {

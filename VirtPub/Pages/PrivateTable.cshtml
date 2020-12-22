@@ -3,14 +3,28 @@
 @{
 }
 
+<head>
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
+</head>
+
 <h1>Hi this is a private table</h1>
+
 
 @*TODO: Move css to separate css file*@
 <div style="display: inline-flex">
-    <h4 id="invite-link"></h4>
-    <button id="inviteBtn">Copy invite link</button>
+    <button class="btn btn-primary" id="inviteBtn">Copy invite link</button>
 </div>
 
+<br><br><hr \>
 
+<div id="CurrentMembers"></div>
 
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src ="~/js/copyToClipboard.js"></script>
+
+<script type="text/javascript">
+    var jsTableId = "@Model.TableId.ToString()";
+    var Group = "@Model.TableId.ToString()";
+</script>
+
+<partial name="_ChatModalPartial" />

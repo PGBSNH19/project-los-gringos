@@ -30,5 +30,16 @@ namespace VirtPub.Hubs
             Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", _httpContextAccessor.HttpContext.User.Identity.Name, "left");
             return Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
         }
+
+        public Task UserJoinedTable(string group)
+        {
+            return Clients.Group(group).SendAsync("UserJoinedTable");
+        }
+
+        public Task UpdateSelfToTableMembers(string group)
+        {
+            string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            return Clients.Group(group).SendAsync("UpdateSelfToTableMembers", userName);
+        }
     }
 }
