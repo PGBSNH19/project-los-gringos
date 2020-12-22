@@ -13,20 +13,15 @@ namespace VirtPub.Pages
     [Authorize]
     public class PrivateTableModel : PageModel
     {
-        [BindProperty]
-        public string Text { get; set; }
-        public void OnGet()
-        {
+        [BindProperty(SupportsGet =true)]
+        public Guid Id { get; set; }
 
+        public IActionResult OnGet()
+        {
+            if(Id== Guid.Empty)
+                return RedirectToPage("/Index");
+            return Page();
         }
 
-
-
-        //public string GetUrl()
-        //{
-        //    var hostPath = HttpContext.Request.Host.ToString();
-        //    var path = HttpContext.Request.Path.ToString();
-        //    return hostPath + path;
-        //}
     }
 }
