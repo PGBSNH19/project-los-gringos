@@ -19,8 +19,8 @@ jobs:
           heroku_email: "fredrikoden87@gmail.com"
 
       - run: |
-          heroku container:push web -a $APP_NAME
-          heroku container:release web -a $APP_NAME
+          heroku container:push web -a $heroku_app_name
+          heroku container:release web -a $heroku_app_name
 
 
 
