@@ -32,7 +32,7 @@ namespace VertPub.Backend
         {
             services.AddDbContext<VirtpubContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultBackendConnection"));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultBackendConnection"));
             });
 
            
