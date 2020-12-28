@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,13 @@ namespace VertPub.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("DefaultBackendConnection");
+            if (connectionString == null || connectionString == "")
+                connectionString = GetConnectionString();
+
             services.AddDbContext<VirtpubContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultBackendConnection"));
+                options.UseNpgsql(connectionString);
             });
 
            
@@ -67,6 +72,24 @@ namespace VertPub.Backend
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private string GetConnectionString()
+        {
+            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUri = new Uri(databaseUrl);
+            var userInfo = databaseUri.UserInfo.Split(':');
+
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUri.Host,
+                Port = databaseUri.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUri.LocalPath.TrimStart('/')
+            };
+
+            return builder.ToString();
         }
     }
 }
