@@ -10,5 +10,5 @@ RUN dotnet publish -c Release -o backendout
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /BackendApp
 COPY --from=build-env /BackendApp/backendout .
- # ENTRYPOINT ["dotnet", "VertPub.Backend.dll"]
-CMD ASPNETCORE_URLS=https://*:4001 dotnet VertPub.Backend.dll
+# ENTRYPOINT ["dotnet", "VertPub.Backend.dll"]
+CMD ASPNETCORE_URLS=https://*:$PORT dotnet VertPub.Backend.dll
