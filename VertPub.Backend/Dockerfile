@@ -11,4 +11,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /BackendApp
 COPY --from=build-env /BackendApp/backendout .
 # ENTRYPOINT ["dotnet", "VertPub.Backend.dll"]
-CMD ASPNETCORE_URLS=https://*:$PORT dotnet VertPub.Backend.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet VertPub.Backend.dll
