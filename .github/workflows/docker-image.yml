@@ -11,16 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Deploy to Heroku #set the whatever name you want to this step
+        id: heroku
+        uses: jctaveras/heroku-deploy@v1.0.0  # use the latest version of the action
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: virtpubbackend #Must be unique in Herokus
-          heroku_email: fredrikoden87@gmail.com
-      - run: |
-          docker build VertPub.Backend/ -t Docker/virtpubregistrybackend:latest
+          email: fredrikoden87@gmail.com # your heroku email
+          api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
+          app_name: virtpubbackend # you aplication name
+          dockerfile_path: 'VertPub.Backend/' # set the path to the folder wher the Dokerfile is located
+          options: '' # Docker Build Options
+          formation: '' # Docker Dyno Formation. By default is web
 
-      - run: |
-          heroku container:login
-          heroku container:push web -a virtpubbackend
-          heroku container:release web -a virtpubbackend
+      # - uses: actions/checkout@v2
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: virtpubbackend #Must be unique in Herokus
+      #     heroku_email: fredrikoden87@gmail.com
+      # - run: |
+      #     docker build VertPub.Backend/ -t Docker/virtpubregistrybackend:latest
+
+      # - run: |
+      #     heroku container:login
+      #     heroku container:push web -a virtpubbackend
+      #     heroku container:release web -a virtpubbackend
