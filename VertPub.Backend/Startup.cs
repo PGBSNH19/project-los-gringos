@@ -40,8 +40,6 @@ namespace VertPub.Backend
                 options.UseNpgsql(connectionString);
             });
 
-           
-        
             services.AddScoped<IGameLinksRepo, GameLinksRepo>();
             services.AddScoped<ITableRepo, TableRepo>();
             services.AddScoped<IScoreBoardRepo, ScoreBoardRepo>();
