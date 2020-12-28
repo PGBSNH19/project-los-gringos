@@ -19,11 +19,6 @@ jobs:
           heroku_email: "fredrikoden87@gmail.com"
 
       - run: |
+          docker login --username=fredrikoden87@gmail.com --password=${{secrets.HEROKU_API_KEY}} registry.heroku.com
           heroku container:push web -a "virtpubbackend"
           heroku container:release web -a "virtpubbackend"
-
-
-
-          # -run: |
-          #   docker build VirtPub/ -t Test/virtpubregistry:latest
-          #   docker push Test/virtpubregistry:latest
