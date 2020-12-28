@@ -17,9 +17,10 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: virtpubbackend #Must be unique in Herokus
           heroku_email: fredrikoden87@gmail.com
-
       - run: |
           docker build VertPub.Backend/ -t Docker/virtpubregistrybackend:latest
+
+      - run: |
           heroku container:login
           heroku container:push web -a virtpubbackend
           heroku container:release web -a virtpubbackend
