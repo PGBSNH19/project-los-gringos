@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
 ### ⬇ IMPORTANT PART ⬇ ###
 
       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
@@ -34,7 +34,7 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 
           # Dokerfile name. Optional, by default will be set to "Dockerfile".
-          dockerfile_name: Dockerfile
+          dockerfile_name: VertPub.Backend/Dockerfile
 
           # Additional options of docker build command. (Optional)
           docker_options: "--no-cache"
