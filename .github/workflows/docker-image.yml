@@ -20,10 +20,10 @@ jobs:
           dockerfile: 'VertPub.Backend' # set the path to the folder where the Dokerfile is located
 
       - name: Build, Push and Deploy Frontend to Heroku #set the whatever name you want to this step
-        id: heroku
+        id: herokufrontend
         uses: jctaveras/heroku-deploy@v1.0.0  # use the latest version of the action
         with:
           email: ${{ secrets.HEROKU_EMAIL_FRONTEND }} # your heroku email
-          api_key: ${{ secrets.HEROKU_API_KEY_FRONTEND }} # your  heroku api key
-          app_name: ${{ secrets.HEROKU_APP_NAME_FRONTEND }} # you aplication name
+          api_key: ${{ secrets.HEROKU_API_KEY_FRONTEND }} # your heroku api key
+          app_name: ${{ secrets.HEROKU_APP_NAME_FRONTEND }} # your aplication name
           dockerfile: 'VirtPub' # set the path to the folder where the Dokerfile is located
