@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VertPub.Backend.Migrations
 {
-    public partial class AddedGameLinkToTableModel : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,11 +11,11 @@ namespace VertPub.Backend.Migrations
                 name: "GameLinks",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    link = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    maxPlayers = table.Column<int>(type: "int", nullable: false),
-                    minPlayers = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    link = table.Column<string>(type: "text", nullable: true),
+                    name = table.Column<string>(type: "text", nullable: true),
+                    maxPlayers = table.Column<int>(type: "integer", nullable: false),
+                    minPlayers = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,10 +26,10 @@ namespace VertPub.Backend.Migrations
                 name: "ScoreBoards",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    gameid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    points = table.Column<int>(type: "int", nullable: false),
-                    player = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    gameid = table.Column<Guid>(type: "uuid", nullable: true),
+                    points = table.Column<int>(type: "integer", nullable: false),
+                    player = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,9 +46,9 @@ namespace VertPub.Backend.Migrations
                 name: "Tables",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    isPrivate = table.Column<bool>(type: "bit", nullable: false),
-                    gameid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    isPrivate = table.Column<bool>(type: "boolean", nullable: false),
+                    gameid = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
