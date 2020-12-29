@@ -35,7 +35,7 @@ namespace VirtPub.Services
                 <GameLinksModel>(responseStream);
         }
 
-        public async Task<IEnumerable<GameLinksModel>> GetGames()
+        public async Task<List<GameLinksModel>> GetGames()
         {
             var response = await Client.GetAsync(
                 "api/v1.0/GameLinks");
@@ -43,7 +43,7 @@ namespace VirtPub.Services
             using var responseStream = await response.Content.ReadAsStreamAsync();
 
             return await JsonSerializer.DeserializeAsync
-                <IEnumerable<GameLinksModel>>(responseStream);
+                <List<GameLinksModel>>(responseStream);
         }
 
         public async Task<TableModel> GetTableById(string id)

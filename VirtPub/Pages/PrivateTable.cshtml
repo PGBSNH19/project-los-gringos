@@ -1,4 +1,5 @@
-﻿@page 
+﻿@page
+
 @model VirtPub.Pages.PrivateTableModel
 @{
 }
@@ -14,9 +15,17 @@
     <h4 id="invite-link"></h4>
     <button id="inviteBtn">Copy invite link</button>
 </div>
+<div>
+    <p>Games!</p>
+    <ul>
+        @foreach (var game in Model.Games)
+        {
+            <li><a href="@game.link">@game.name</a> </li>
+        }
+    </ul>
+</div>
 
-
-<script src ="~/js/copyToClipboard.js"></script>
+<script src="~/js/copyToClipboard.js"></script>
 
 <script type="text/javascript">
     var Group = "@Model.Id.ToString()";
