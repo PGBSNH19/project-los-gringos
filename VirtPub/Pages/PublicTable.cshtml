@@ -17,13 +17,13 @@
             <p class="card-text">beskrivning om spelet placeholder</p>
 
             @{
-            var selectedTableId = new Dictionary<string, string>
+                var selectedTableId = new Dictionary<string, string>
                         {
                             { "id", table.id.ToString() }
                         };
             }
 
-            <a asp-page="/PublicTableGame" asp-all-route-data="selectedTableId" class="btn btn-primary">Go To Table</a>
+            <a asp-page="/PublicTableGame" asp-all-route-data="selectedTableId" class="btn btn-warning">Go To Table</a>
         </div>
     </div>
 }
