@@ -9,12 +9,12 @@ using VirtPub.Services;
 
 namespace VirtPub.Hubs
 {
-    public class ChatHub : Hub
+    public class Scoreboard : Hub
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly GameService _service;
 
-        public ChatHub(IHttpContextAccessor httpContextAccessor, GameService service)
+        public Scoreboard(IHttpContextAccessor httpContextAccessor, GameService service)
         {
             _service = service;
             _httpContextAccessor = httpContextAccessor;
@@ -29,18 +29,13 @@ namespace VirtPub.Hubs
         public void AddUserToGroup(string group)
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            Groups.AddToGroupAsync(Context.ConnectionId.ToString(), group);
-            Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", userName, "Has joined.");
-
+            
             _service.AddUserToUserList(userName, group, Context.ConnectionId);
         }
 
         public void RemoveUserFromGroup(string group)
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-
-            Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", userName, "left.");
-            Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
 
             _service.RemoveUserFromUserList(userName);
         }

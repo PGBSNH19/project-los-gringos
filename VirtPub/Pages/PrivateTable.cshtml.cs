@@ -16,23 +16,24 @@ namespace VirtPub.Pages
     {
         private readonly GameService _service;
         public List<GameLinksModel> Games = new List<GameLinksModel>();
+        public List<ConnectedUser> UserList = new List<ConnectedUser>();
 
         public PrivateTableModel(GameService service)
         {
             _service = service;
         }
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
-            if(Id== Guid.Empty)
+            if(Id == Guid.Empty)
                 return RedirectToPage("/Index");
 
             Games = await _service.GetGames();
+            UserList = _service.GetUsersInTableById(Id.ToString());
             return Page();
         }
-
     }
 }
