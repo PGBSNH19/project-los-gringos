@@ -17,10 +17,20 @@ namespace VirtPub.Services
 
         public GameService(HttpClient client, IConfiguration configuration)
         {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            client = new HttpClient(clientHandler);
+
             _configuration = configuration;
             Client = client;
 
             var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
+            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
+            _configuration = configuration;
+            Client = client;
+
+            // var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
             client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
         }
 
@@ -35,7 +45,7 @@ namespace VirtPub.Services
                 <GameLinksModel>(responseStream);
         }
 
-        public async Task<IEnumerable<GameLinksModel>> GetGames()
+        public async Task<List<GameLinksModel>> GetGames()
         {
             var response = await Client.GetAsync(
                 "api/v1.0/GameLinks");
@@ -43,7 +53,7 @@ namespace VirtPub.Services
             using var responseStream = await response.Content.ReadAsStreamAsync();
 
             return await JsonSerializer.DeserializeAsync
-                <IEnumerable<GameLinksModel>>(responseStream);
+                <List<GameLinksModel>>(responseStream);
         }
 
         public async Task<TableModel> GetTableById(string id)
