@@ -59,8 +59,12 @@ namespace VertPub.Backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VertPub.Backend v1"));
             }
+            else{
 
-            app.UseHttpsRedirection();
+                app.UseHttpsRedirection();
+            }
+
+
 
             app.UseRouting();
 
