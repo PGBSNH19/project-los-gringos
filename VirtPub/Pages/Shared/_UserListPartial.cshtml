@@ -1,15 +1,10 @@
 @model List<Models.ConnectedUser>
 
+<div class="row">Test</div>
 
-    <ul>
-        @if (Model != null)
-        {
-            @foreach (var user in Model)
-            {
-                <li><p>@user.UserName</p></li>
-            }
-        }
-    </ul>
-
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/scoreboard.js"></script>
+<ul>
+    @foreach (var user in Model)
+    {
+        <li><p>@user.UserName | @user.IsAdmin</p></li>
+    }
+</ul>

@@ -1,75 +1,15 @@
 "use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var scoreboardConnection = new signalR.HubConnectionBuilder().withUrl("/scoreboard").build();
 
-//Disable send button until connection is established
-document.getElementById("sendButton").disabled = true;
-
-connection.on("ReceiveMessage", function (user, message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var encodedMsg = "<b>" + user + "</b>" + ": " + msg + "</br>";
-    var p = document.createElement("span");
-    p.innerHTML = encodedMsg;
-    document.getElementById("ChatWindow").appendChild(p);
-    updateScroll();
+scoreboardConnection.on("UpdateUserList", function () {
+    $('#UserListPartial').load('/PrivateTable?handler=UserListPartial&tableId=' + Group );
 });
 
-connection.start().then(function () {
-    connection.invoke("AddUserToGroup", Group);
-    document.getElementById("sendButton").disabled = false;
-}).catch(function (err) {
-    return console.error(err.toString());
+scoreboardConnection.start().then(function () {
+    scoreboardConnection.invoke("AddUserToUserList", Group);
 });
-
-document.getElementById("sendButton").addEventListener("click", function (event) {
-    event.preventDefault();
-    SendChatMessage()
-});
-
-document.getElementById("MinimizeChat").addEventListener("click", function (event) {
-    event.preventDefault();
-    if (document.getElementById("ChatWindow").hidden) {
-        document.getElementById("ChatWindow").hidden = false;
-        document.getElementById("ModalFooter").hidden = false;
-        document.getElementById("MinimizeChat").innerHTML = "Minimize chat window";
-        document.getElementById("ModalWindow").style = "max-height:45%";
-    }
-    else {
-        document.getElementById("ChatWindow").hidden = true;
-        document.getElementById("ModalFooter").hidden = true;
-        document.getElementById("MinimizeChat").innerHTML = "Maximize chat window";
-        document.getElementById("ModalWindow").style = "max-height:45px";
-    }
-    
-});
-
-document.getElementById("messageInput").addEventListener("keyup", function (event) {
-    event.preventDefault();
-    if (event.key == "Enter") {
-        SendChatMessage()
-    }
-});
-
-function SendChatMessage(){
-    var message = document.getElementById("messageInput").value;
-
-    if (message == "") {
-        document.getElementById("messageInput").placeholder = "Anything"
-    }
-    else {
-        document.getElementById("messageInput").placeholder = "Write something"
-        document.getElementById("messageInput").value = "";
-        connection.invoke("SendMessageToGroup", message, Group).catch(function (err) {
-            return console.error(err.toString());
-        });
-    }
-};
-
-function updateScroll(){
-    var element = document.getElementById("ChatWindow");
-    element.scrollTop = element.scrollHeight;
-};
 
 window.addEventListener("unload", function(event) { 
-    connection.invoke("RemoveUserFromGroup", Group);
+    scoreboardConnection.invoke("RemoveUserFromUserList", Group);
 });

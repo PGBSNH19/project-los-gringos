@@ -9,35 +9,38 @@ using VirtPub.Services;
 
 namespace VirtPub.Hubs
 {
-    public class Scoreboard : Hub
+    public class ScoreboardHub : Hub
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly GameService _service;
 
-        public Scoreboard(IHttpContextAccessor httpContextAccessor, GameService service)
+        public ScoreboardHub(IHttpContextAccessor httpContextAccessor, GameService service)
         {
             _service = service;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void SendMessageToGroup(string message, string group)
+        public List<ConnectedUser> UpdateUserList(string group)
         {
-            string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            Clients.Group(group).SendAsync("ReceiveMessage", userName, message);
+            return _service.GetUsersInTableById(group);
         }
 
-        public void AddUserToGroup(string group)
+        public async void AddUserToUserList(string group)
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            
+            await Groups.AddToGroupAsync(Context.ConnectionId.ToString(), group);
             _service.AddUserToUserList(userName, group, Context.ConnectionId);
+
+            await Clients.Group(group).SendAsync("UpdateUserList");
         }
 
-        public void RemoveUserFromGroup(string group)
+        public async void RemoveUserFromUserList(string group)
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
             _service.RemoveUserFromUserList(userName);
+
+            await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("UpdateUserList");
         }
     }
 }

@@ -35,5 +35,11 @@ namespace VirtPub.Pages
             UserList = _service.GetUsersInTableById(Id.ToString());
             return Page();
         }
+
+        public PartialViewResult OnGetUserListPartial(string tableId)
+        {
+            UserList = _service.GetUsersInTableById(tableId);
+            return Partial("_UserListPartial", UserList);
+        }
     }
 }

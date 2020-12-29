@@ -31,8 +31,6 @@ namespace VirtPub.Hubs
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             Groups.AddToGroupAsync(Context.ConnectionId.ToString(), group);
             Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", userName, "Has joined.");
-
-            _service.AddUserToUserList(userName, group, Context.ConnectionId);
         }
 
         public void RemoveUserFromGroup(string group)
@@ -41,8 +39,6 @@ namespace VirtPub.Hubs
 
             Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", userName, "left.");
             Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
-
-            _service.RemoveUserFromUserList(userName);
         }
     }
 }

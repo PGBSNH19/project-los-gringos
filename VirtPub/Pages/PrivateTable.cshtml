@@ -1,8 +1,7 @@
 ﻿@page
 
 @model VirtPub.Pages.PrivateTableModel
-@{
-}
+
 
 <head>
     <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
@@ -26,12 +25,13 @@
 
     
     <div id="UserListPartial">
-        @Html.Partial("_UserListPartial", Model.UserList)
+        @Html.Partial("_UserListPartial", @Model.UserList);
     </div>
-
 </div>
 
 <script src="~/js/copyToClipboard.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/scoreboard.js"></script>
 
 <script type="text/javascript">
     var Group = "@Model.Id.ToString()";

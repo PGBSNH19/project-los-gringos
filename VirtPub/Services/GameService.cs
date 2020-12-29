@@ -106,18 +106,29 @@ namespace VirtPub.Services
         {
             try
             {
+                var isUserAdmin = WillUserBeTableAdmin(group);
+
                 users.Add(new ConnectedUser()
                 {
                     UserName = userName,
                     ConnectionId = connectionId,
                     Group = group,
-                    IsAdmin = false
+                    IsAdmin = isUserAdmin
                 });
             }
             catch (System.Exception)
             {
                 System.Console.WriteLine("Unable to add the user to the list: Users");
             }
+        }
+
+        private bool WillUserBeTableAdmin(string group)
+        {
+            var temp = users.Where(x => x.Group == group && x.IsAdmin == true).Count();
+            if (temp == 0)
+                return true;
+
+            return false;
         }
 
         public void RemoveUserFromUserList(string userName)
