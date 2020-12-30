@@ -28,7 +28,7 @@ namespace VirtPub.Pages
         public async Task OnGet(Dictionary<string, string> selectedTable)
         {
             Table = await _service.GetTableById(selectedTable["id"]);
-            //Game = await _service.GetGameById(Table.game.id.ToString());
+            Game = await _service.GetGameById(Table.game.id.ToString());
         }
     }
 }
