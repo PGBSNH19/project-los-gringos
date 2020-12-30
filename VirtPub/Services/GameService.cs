@@ -18,10 +18,20 @@ namespace VirtPub.Services
 
         public GameService(HttpClient client, IConfiguration configuration)
         {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            client = new HttpClient(clientHandler);
+
             _configuration = configuration;
             Client = client;
 
             var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
+            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
+            _configuration = configuration;
+            Client = client;
+
+            // var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
             client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
         }
 
