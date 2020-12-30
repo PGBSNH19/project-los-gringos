@@ -12,7 +12,8 @@ namespace VirtPub.Services
 {
     public class GameService
     {
-        public HttpClient Client { get; }
+        private HttpClient Client { get; }
+        private static List<ConnectedUser> users = new List<ConnectedUser>();
         private readonly IConfiguration _configuration;
 
         public GameService(HttpClient client, IConfiguration configuration)
@@ -43,6 +44,11 @@ namespace VirtPub.Services
 
             return await JsonSerializer.DeserializeAsync
                 <GameLinksModel>(responseStream);
+        }
+
+        public List<ConnectedUser> GetUsersInTableById(string group)
+        {
+            return users.Where(x => x.Group == group).ToList();
         }
 
         public async Task<List<GameLinksModel>> GetGames()
@@ -104,6 +110,52 @@ namespace VirtPub.Services
 
             string result = response.Content.ReadAsStringAsync().Result;
             return result;
+        }
+
+        public void AddUserToUserList(string userName, string group, string connectionId)
+        {
+            try
+            {
+                var isUserAdmin = WillUserBeTableAdmin(group);
+
+                users.Add(new ConnectedUser()
+                {
+                    UserName = userName,
+                    ConnectionId = connectionId,
+                    Group = group,
+                    IsAdmin = isUserAdmin
+                });
+            }
+            catch (System.Exception)
+            {
+                System.Console.WriteLine("Unable to add the user to the list: Users");
+            }
+        }
+
+        private bool WillUserBeTableAdmin(string group)
+        {
+            if (users.Where(x => x.Group == group && x.IsAdmin == true).Count() == 0)
+                return true;
+
+            return false;
+        }
+
+        public void RemoveUserFromUserList(string userName)
+        {
+            try
+            {
+                var userToRemove = users.Where(x => x.UserName == userName).First();
+                users.Remove(userToRemove);
+
+                if (userToRemove != null && userToRemove.IsAdmin && users.Count() > 0)
+                {
+                    users[0].IsAdmin = true;
+                }
+            }
+            catch (System.Exception)
+            {
+                System.Console.WriteLine("Unable to remove the user from the list: Users");
+            }
         }
     }
 }
