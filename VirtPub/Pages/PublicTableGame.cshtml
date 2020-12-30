@@ -14,6 +14,7 @@
 </p>
 
 
+
 @* <a href="@Model.Game.link" class="btn btn-primary">Go To Game</a> *@
 
 
@@ -22,3 +23,7 @@
 <script type="text/javascript">var Group ="@Model.Table.id"</script>
 
 <partial name="_ChatModalPartial" />
+
+<iframe id="inlineFrameExample" title="Inline Frame Example" width="700px" height="700px"
+        src="@Model.Table.game.link"
+    </iframe>
