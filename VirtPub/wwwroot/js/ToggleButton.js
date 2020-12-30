@@ -1,0 +1,1 @@
+document.getElementById('buttonToggle').style.display=none

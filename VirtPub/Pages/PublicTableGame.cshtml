@@ -34,7 +34,11 @@
 
 <a href="@Model.Game.link" class="btn btn-primary">Go To Game</a>
 
-
+@if (Model.Game.maxPlayers > 0)
+{
+    
+<script src="~/js/ToggleButton.js"></script>
+}
 <script src="~/js/goToGame.js"></script>
 
 <script type="text/javascript">var Group ="@Model.Table.id"</script>

@@ -18,6 +18,7 @@ namespace VirtPub.Pages
         private readonly GameService _service;
         public TableModel Table = new TableModel();
         public GameLinksModel Game = new GameLinksModel();
+        public List<ConnectedUser> UserList = new List<ConnectedUser>();
 
         public PublicTableGameModel(ILogger<PublicTableModel> logger, GameService service)
         {
@@ -29,6 +30,8 @@ namespace VirtPub.Pages
         {
             Table = await _service.GetTableById(selectedTable["id"]);
             Game = await _service.GetGameById(Table.game.id.ToString());
+
+           
         }
     }
 }
