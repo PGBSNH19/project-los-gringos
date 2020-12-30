@@ -70,6 +70,6 @@ function updateScroll(){
     element.scrollTop = element.scrollHeight;
 };
 
-window.onunload(function () {
+window.addEventListener("unload", function(event) { 
     connection.invoke("RemoveUserFromGroup", Group);
 });

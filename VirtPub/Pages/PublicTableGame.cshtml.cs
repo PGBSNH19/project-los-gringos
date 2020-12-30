@@ -18,15 +18,14 @@ namespace VirtPub.Pages
         private readonly ILogger<PublicTableModel> _logger;
 
         private readonly GameService _service;
-        public TableModel Table {get; set;}
-        public GameLinksModel Game {get; set;} = new GameLinksModel();
-
-        [BindProperty(SupportsGet= true)]
-        public Dictionary<string,string> SelectedTable {get; set;}
-        
+        public TableModel Table = new TableModel();
+        public GameLinksModel Game = new GameLinksModel();
 
         [BindProperty(SupportsGet= true)]
         public Dictionary<string,string> SelectedGame {get; set;}
+
+        [BindProperty(SupportsGet= true)]
+        public Dictionary<string,string> SelectedTable {get; set;}
         public PublicTableGameModel(ILogger<PublicTableModel> logger, GameService service)
         {
             _logger = logger;
@@ -36,9 +35,7 @@ namespace VirtPub.Pages
         public async Task OnGet()
         {
             Table = await _service.GetTableById(SelectedTable["id"]);
-            var games = await _service.GetGames();
-
-            Game = games.Where(x=> x.id == Table.game.id).FirstOrDefault();
+            Game = await _service.GetGameById(Table.game.id.ToString());
         }
     }
 }
