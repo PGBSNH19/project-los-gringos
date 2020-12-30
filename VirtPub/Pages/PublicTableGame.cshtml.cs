@@ -20,6 +20,8 @@ namespace VirtPub.Pages
         private readonly GameService _service;
         public TableModel Table = new TableModel();
 
+        public List<ConnectedUser> UserList = new List<ConnectedUser>();
+
         [BindProperty(SupportsGet= true)]
         public Dictionary<string,string> SelectedTable {get; set;}
         public PublicTableGameModel(ILogger<PublicTableModel> logger, GameService service)
