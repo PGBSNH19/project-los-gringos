@@ -9,12 +9,12 @@ using VirtPub.Services;
 
 namespace VirtPub.Hubs
 {
-    public class ScoreboardHub : Hub
+    public class PrivateTableHub : Hub
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly GameService _service;
 
-        public ScoreboardHub(IHttpContextAccessor httpContextAccessor, GameService service)
+        public PrivateTableHub(IHttpContextAccessor httpContextAccessor, GameService service)
         {
             _service = service;
             _httpContextAccessor = httpContextAccessor;

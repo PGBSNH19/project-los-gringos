@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -32,14 +34,14 @@ namespace VirtPub.Pages
                 return RedirectToPage("/Index");
 
             Games = await _service.GetGames();
+
             UserList = _service.GetUsersInTableById(Id.ToString());
             return Page();
         }
 
         public PartialViewResult OnGetUserListPartial(string tableId)
         {
-            UserList = _service.GetUsersInTableById(tableId);
-            return Partial("_UserListPartial", UserList);
+            return Partial("_UserListPartial", _service.GetUsersInTableById(tableId));
         }
     }
 }

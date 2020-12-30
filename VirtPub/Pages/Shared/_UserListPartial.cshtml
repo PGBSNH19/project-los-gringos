@@ -1,10 +1,21 @@
 @model List<Models.ConnectedUser>
 
-<div class="row">Test</div>
+@if (Model != null)
+{
+    <p>Connected users!</p>
 
-<ul>
-    @foreach (var user in Model)
-    {
-        <li><p>@user.UserName | @user.IsAdmin</p></li>
-    }
-</ul>
+    <ul class-list-group>
+        @foreach (var user in Model)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <p class="userNameListItem"> @user.UserName</p>
+                    @if (user.IsAdmin)
+                    {
+                        <i class='adminIcon fas fa-crown' style='font-size:1rem;color:gold'></i>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+}

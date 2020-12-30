@@ -70,7 +70,7 @@ namespace VirtPub
             {
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chathub");
-                endpoints.MapHub<ScoreboardHub>("/scoreboard");
+                endpoints.MapHub<PrivateTableHub>("/privatetablehub");
             });
         }
 

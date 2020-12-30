@@ -124,8 +124,7 @@ namespace VirtPub.Services
 
         private bool WillUserBeTableAdmin(string group)
         {
-            var temp = users.Where(x => x.Group == group && x.IsAdmin == true).Count();
-            if (temp == 0)
+            if (users.Where(x => x.Group == group && x.IsAdmin == true).Count() == 0)
                 return true;
 
             return false;
@@ -135,7 +134,13 @@ namespace VirtPub.Services
         {
             try
             {
-                users.Remove(users.Where(x => x.UserName == userName).First());
+                var userToRemove = users.Where(x => x.UserName == userName).First();
+                users.Remove(userToRemove);
+
+                if (userToRemove != null && userToRemove.IsAdmin && users.Count() > 0)
+                {
+                    users[0].IsAdmin = true;
+                }
             }
             catch (System.Exception)
             {
