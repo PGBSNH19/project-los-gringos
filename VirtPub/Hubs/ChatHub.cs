@@ -1,34 +1,44 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using VirtPub.Models;
+using VirtPub.Services;
 
 namespace VirtPub.Hubs
 {
     public class ChatHub : Hub
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly GameService _service;
 
-        public ChatHub(IHttpContextAccessor httpContextAccessor)
+        public ChatHub(IHttpContextAccessor httpContextAccessor, GameService service)
         {
+            _service = service;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task SendMessageToGroup(string message, string group)
+        public void SendMessageToGroup(string message, string group)
         {
             string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            await Clients.Group(group).SendAsync("ReceiveMessage", userName, message);
+            Clients.Group(group).SendAsync("ReceiveMessage", userName, message);
         }
 
-        public async Task AddUserToGroup(string group)
+        public void AddUserToGroup(string group)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId.ToString(), group);
-            await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", _httpContextAccessor.HttpContext.User.Identity.Name, "Has joined");
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            Groups.AddToGroupAsync(Context.ConnectionId.ToString(), group);
+            Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", userName, "Has joined.");
         }
 
-        public Task RemoveUserFromGroup(string group)
+        public void RemoveUserFromGroup(string group)
         {
-            Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", _httpContextAccessor.HttpContext.User.Identity.Name, "left");
-            return Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+
+            Clients.GroupExcept(group, Context.ConnectionId).SendAsync("ReceiveMessage", userName, "left.");
+            Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
         }
     }
 }
