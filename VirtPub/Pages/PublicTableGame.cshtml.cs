@@ -17,6 +17,7 @@ namespace VirtPub.Pages
         private readonly ILogger<PublicTableModel> _logger;
         private readonly GameService _service;
         public TableModel Table = new TableModel();
+        public GameLinksModel Game = new GameLinksModel();
 
         public PublicTableGameModel(ILogger<PublicTableModel> logger, GameService service)
         {
@@ -27,6 +28,7 @@ namespace VirtPub.Pages
         public async Task OnGet(Dictionary<string, string> selectedTable)
         {
             Table = await _service.GetTableById(selectedTable["id"]);
+            //Game = await _service.GetGameById(Table.game.id.ToString());
         }
     }
 }

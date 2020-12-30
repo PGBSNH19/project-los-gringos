@@ -18,7 +18,7 @@ namespace VertPub.Backend.Repos
 
         public async Task<TableModel> GetTableById(string id)
         {
-            var table = await _context.Tables.FirstOrDefaultAsync(x => x.id.ToString() == id);
+            var table = await _context.Tables.Include(x=> x.game).FirstOrDefaultAsync(x => x.id.ToString() == id);
             return table;
         }
 
