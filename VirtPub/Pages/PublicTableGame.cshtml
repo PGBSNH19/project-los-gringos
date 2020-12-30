@@ -7,40 +7,27 @@
     <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
 </head>
 
-@*
-    @foreach (var table in Model.Tables)
-    {
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@table.id</h5>
+<h1>@Model.Table.game.name</h1>
 
-                @{
-                var selectedTableId = new Dictionary<string, string>
-                            {
-                                { "id", table.id.ToString() }
-                            };
-                }
+<p>
+    <a href="@Model.Table.game.link" target="blank">@Model.Table.game.link</a>
+</p>
 
-            </div>
-        </div>
-    } *@
 
-@*
-    <h5>@Model.Game.id</h5>
-    <h5>@Model.Game.name</h5>
-    <h5>@Model.Game.maxPlayers</h5>
-    <h5>@Model.Game.minPlayers</h5>
-    <h5>@Model.Game.link</h5> *@
 
-<a href="@Model.Game.link" class="btn btn-primary">Go To Game</a>
+@* <a href="@Model.Game.link" class="btn btn-primary">Go To Game</a>
 
 @if (Model.Game.maxPlayers > 0)
 {
     
 <script src="~/js/ToggleButton.js"></script>
 }
-<script src="~/js/goToGame.js"></script>
+<script src="~/js/goToGame.js"></script> *@
 
 <script type="text/javascript">var Group ="@Model.Table.id"</script>
 
 <partial name="_ChatModalPartial" />
+
+<iframe id="inlineFrameExample" title="Inline Frame Example" width="700px" height="700px"
+        src="@Model.Table.game.link"
+    </iframe>
