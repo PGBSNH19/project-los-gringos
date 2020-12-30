@@ -1,6 +1,6 @@
 ﻿
-document.getElementById('goToGame').addEventListener('click', () => {
+/* document.getElementById('goToGame').addEventListener('click', () => {
     const link = ;
     window.alert("hehejj")
     window.open();
-})
+}) */
