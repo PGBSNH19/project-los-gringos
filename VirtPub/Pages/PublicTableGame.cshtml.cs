@@ -19,10 +19,6 @@ namespace VirtPub.Pages
 
         private readonly GameService _service;
         public TableModel Table = new TableModel();
-        public GameLinksModel Game = new GameLinksModel();
-
-        [BindProperty(SupportsGet= true)]
-        public Dictionary<string,string> SelectedGame {get; set;}
 
         [BindProperty(SupportsGet= true)]
         public Dictionary<string,string> SelectedTable {get; set;}
@@ -35,7 +31,6 @@ namespace VirtPub.Pages
         public async Task OnGet()
         {
             Table = await _service.GetTableById(SelectedTable["id"]);
-            Game = await _service.GetGameById(Table.game.id.ToString());
         }
     }
 }

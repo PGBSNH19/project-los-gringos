@@ -7,32 +7,14 @@
     <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
 </head>
 
-@*
-    @foreach (var table in Model.Tables)
-    {
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@table.id</h5>
+<h1>@Model.Table.game.name</h1>
 
-                @{
-                var selectedTableId = new Dictionary<string, string>
-                            {
-                                { "id", table.id.ToString() }
-                            };
-                }
+<p>
+    <a href="@Model.Table.game.link" target="blank">@Model.Table.game.link</a>
+</p>
 
-            </div>
-        </div>
-    } *@
 
-@*
-    <h5>@Model.Game.id</h5>
-    <h5>@Model.Game.name</h5>
-    <h5>@Model.Game.maxPlayers</h5>
-    <h5>@Model.Game.minPlayers</h5>
-    <h5>@Model.Game.link</h5> *@
-
-<a href="@Model.Game.link" class="btn btn-primary">Go To Game</a>
+@* <a href="@Model.Game.link" class="btn btn-primary">Go To Game</a> *@
 
 
 <script src="~/js/goToGame.js"></script>
