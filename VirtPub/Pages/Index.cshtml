@@ -7,16 +7,20 @@
 <head>
     <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
     <link rel="stylesheet" href="css/site.css">
+    <link href="~/css/publicTable.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
 </head>
 
 <div class="text-center">
-    <h2 class="display-4">Welcome to our pub!</h2>
+    <h2 class="display-4">Los Gringos!</h2>
 </div>
 
 @*<button onclick="window.location.href = '@Url.Page("PrivateTable/@Model.Id")'">Generate private table</button>*@
 @*<a asp-page="/PublicTable/@Model.Id" class="btn btn-primary"> Create Private table</a>*@
+
 <form method="post">
-    <button type="submit" class="btn btn-primary">Create Private table</button>
+    <button type="submit" class="btn btn-warning card-shadow index-create">Create Private table</button>
 </form>
 @foreach (var game in Model.Games)
 {
@@ -35,7 +39,7 @@
             }
 
             @* <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a> *@
-            <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-primary">Go To Public Game</a>
+            <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-warning">Go To Public Game</a>
         </div>
     </div>
 }
