@@ -118,13 +118,19 @@ namespace VirtPub.Services
             {
                 var isUserAdmin = WillUserBeTableAdmin(group);
 
-                users.Add(new ConnectedUser()
+                var newUser = users.Where(z => z.UserName == userName).ToList();
+
+                if (newUser.Count() == 0)
                 {
-                    UserName = userName,
-                    ConnectionId = connectionId,
-                    Group = group,
-                    IsAdmin = isUserAdmin
-                });
+
+                    users.Add(new ConnectedUser()
+                    {
+                        UserName = userName,
+                        ConnectionId = connectionId,
+                        Group = group,
+                        IsAdmin = isUserAdmin
+                    });
+                }
             }
             catch (System.Exception)
             {
