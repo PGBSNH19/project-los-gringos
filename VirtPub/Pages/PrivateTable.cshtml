@@ -14,14 +14,14 @@
 @*TODO: Move css to separate css file*@
 <div style="display: inline-flex">
     <h4 id="invite-link"></h4>
-    <button id="inviteBtn">Copy invite link</button>
+    <button class="btn btn-warning" id="inviteBtn">Copy invite link</button>
 </div>
-<div>
-    <p>Games!</p>
+<div class="games">
+    <h2>Games!</h2>
     <ul>
         @foreach (var game in Model.Games)
         {
-            <li><a href="@game.link">@game.name</a> </li>
+            <li class="game-list"><a href="@game.link">@game.name</a> </li>
         }
     </ul>
 </div>
