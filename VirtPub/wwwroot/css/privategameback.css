@@ -5,3 +5,29 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
+
+
+.games {
+    background: rgba(0, 0, 0, 0.73);
+}
+
+h2, h1, p{
+    color: white;
+}
+
+a:link {
+    color: white;
+}
+
+a:visited {
+    color: white;
+}
+
+a:active {
+    color: white;
+}
+
+.game-list{
+    list-style: none;
+    font-size: 2rem;
+}
