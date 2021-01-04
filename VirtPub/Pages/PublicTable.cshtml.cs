@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using VirtPub.Models;
@@ -15,21 +16,22 @@ namespace VirtPub.Pages
     public class PublicTableModel : PageModel
     {
         private readonly ILogger<PublicTableModel> _logger;
-        private readonly GameService _service;
+       public GameService _service;
         public IEnumerable<TableModel> Tables = new List<TableModel>();
-
         public GameLinksModel Game = new GameLinksModel();
+        public List<ConnectedUser> UserList = new List<ConnectedUser>();
 
         public PublicTableModel(ILogger<PublicTableModel> logger, GameService service)
         {
             _logger = logger;
             _service = service;
         }
-        
+
         public async Task OnGet(Dictionary<string, string> selectedGame)
         {
             Game = await _service.GetGameById(selectedGame["id"]);
             Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
+            //UserList = _service.GetUsersInTableById(Table.id.ToString());
 
             if (Tables == null || Tables.Count() < 1)
             {

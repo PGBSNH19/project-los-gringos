@@ -10,7 +10,7 @@
 
 
 @foreach (var table in Model.Tables)
-{
+{  
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">@table.id</h5>
@@ -23,9 +23,10 @@
                         };
             }
 
-            <a asp-page="/PublicTableGame" asp-all-route-data="selectedTableId" class="btn btn-warning">Go To Table</a>
-        </div>
+            <a asp-page="/PublicTableGame" asp-all-route-data="selectedTableId"  class="btn btn-warning " style="@(Model.Game.maxPlayers>Model._service.GetUsersInTableById(table.id.ToString()).Count() ? "display:block" : "display:none")">Go To Table</a>
     </div>
+
+</div>
 }
 
 

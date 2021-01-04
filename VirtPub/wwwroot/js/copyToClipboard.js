@@ -15,4 +15,7 @@ function inviteLink() {
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
     });
+
+   
 }
+
