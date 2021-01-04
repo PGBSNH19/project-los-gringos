@@ -10,7 +10,7 @@ namespace VertPub.Backend.Models
     {
         [Key]
         public Guid id { get; set; }
-        public GameLinksModel game { get; set; }
+        public Guid gameID { get; set; }
         public int points { get; set; }
         public string player { get; set; }
     }

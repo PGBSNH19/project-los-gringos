@@ -32,5 +32,28 @@ namespace VertPub.Backend.Repos
             }
             return "Scoreboard created";
         }
+
+        public async Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid id) 
+        {
+             return await _context.ScoreBoards.Where(x=>x.gameID==id).OrderBy(z=>z.points).ToListAsync();
+        }
+        public async Task<string> ChangeScoreboard(string name,int points,Guid id)
+        {
+            var scoreboards = await GetScoreboardByGameId(id);
+            var highscores = scoreboards.Where(x => x.points > points);
+            if (highscores.Count() < 6)
+            {
+                var test = await CreateScoreBoard(new ScoreBoardModel
+                {
+                    points = points,
+                    gameID = id,
+                    player = name
+                }) ;
+            }
+            
+           
+
+            return "scoreboard uppdated";
+        }
     }
 }

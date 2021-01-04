@@ -24,6 +24,12 @@ namespace VertPub.Backend.Controllers
             var result = await _repo.GetAllScorbords();
             return Ok(result);
         }
+        [HttpPut]
+        public async Task<ActionResult<List<ScoreBoardModel>>> ChangeScoreBoard(Guid id) 
+        {
+            var result = await _repo.ChangeScoreboard(id);
+            return Ok(result);
+        }
 
         [HttpPost]
         public async Task<ActionResult<string>> CreateScoreBoard([FromBody]ScoreBoardModel scoreBoard) 
