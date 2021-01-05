@@ -14,7 +14,7 @@ namespace VirtPub.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly GameService _service;
+        public  GameService _service;
         [BindProperty]
         public Guid Id { get; set; }
         public IEnumerable<GameLinksModel> Games = new List<GameLinksModel>();
