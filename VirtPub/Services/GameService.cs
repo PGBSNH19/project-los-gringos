@@ -120,7 +120,7 @@ namespace VirtPub.Services
 
                 var newUser = users.Where(z => z.UserName == userName).ToList();
 
-                if (newUser.Count() == 0)
+                if (newUser.Count == 0)
                 {
 
                     users.Add(new ConnectedUser()
