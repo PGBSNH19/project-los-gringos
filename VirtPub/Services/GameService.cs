@@ -163,5 +163,18 @@ namespace VirtPub.Services
                 System.Console.WriteLine("Unable to remove the user from the list: Users");
             }
         }
+
+        public async Task<List<ScoreboardModel>> GetScoreboardByGameId(string id) 
+        {
+            var response = await Client.GetAsync(
+              $"api/v1.0/ScoreBoard/{id}");
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            return await JsonSerializer.DeserializeAsync
+                <List<ScoreboardModel>>(responseStream);
+        }
+
+        
     }
 }
