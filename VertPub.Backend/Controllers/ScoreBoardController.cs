@@ -25,10 +25,10 @@ namespace VertPub.Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<ScoreBoardModel>>> GetScorboardsByGameId(Guid id)
+        [HttpGet("{sportId}")]
+        public async Task<ActionResult<List<ScoreBoardModel>>> GetScorboardsByGameId(Guid sportId)
         {
-            return Ok(await _repo.GetScoreboardByGameId(id));
+            return Ok(await _repo.GetScoreboardByGameId(sportId));
         }
 
         [HttpPost]

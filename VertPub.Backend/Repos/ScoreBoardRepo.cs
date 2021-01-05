@@ -23,9 +23,9 @@ namespace VertPub.Backend.Repos
         }
         
 
-        public async Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid id) 
+        public async Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid sportId) 
         {
-             return await _context.ScoreBoards.Where(x=>x.gameID==id).OrderByDescending(z=>z.points).ToListAsync();
+             return await _context.ScoreBoards.Where(x=>x.gameID==sportId).OrderByDescending(z=>z.points).ToListAsync();
         }
         public async Task<string> CreateScoreBoard(ScoreBoardModel scoreBoard)
         {
