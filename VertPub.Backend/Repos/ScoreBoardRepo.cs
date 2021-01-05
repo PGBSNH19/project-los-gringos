@@ -21,16 +21,33 @@ namespace VertPub.Backend.Repos
         {
             return await _context.ScoreBoards.ToListAsync();
         }
+        
+
+        public async Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid sportId) 
+        {
+             return await _context.ScoreBoards.Where(x=>x.gameID==sportId).OrderByDescending(z=>z.points).ToListAsync();
+        }
         public async Task<string> CreateScoreBoard(ScoreBoardModel scoreBoard)
         {
-            _context.ScoreBoards.Add(scoreBoard);
-            var result = await _context.SaveChangesAsync();
-
-            if (result <= 0)
+            var scoreboards = await GetScoreboardByGameId(scoreBoard.gameID);
+            var highscores = scoreboards.Where(x => x.points > scoreBoard.points);
+            if (highscores.Count() < 6)
             {
-                return "something went wrong";
+
+                _context.ScoreBoards.Add(scoreBoard);
+                var result = await _context.SaveChangesAsync();
+
+                if (result <= 0)
+                {
+                    return "something went wrong";
+                }
+                return "Scoreboard created";
+
+                
             }
-            return "Scoreboard created";
+            return "not enough points to be added";
+
+
         }
     }
 }
