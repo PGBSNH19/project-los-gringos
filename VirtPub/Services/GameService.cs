@@ -146,12 +146,12 @@ namespace VirtPub.Services
             return false;
         }
 
-        public void RemoveUserFromUserList(string userName)
+        public async Task RemoveUserFromUserList(string userName)
         {
             try
             {
                 var userToRemove = users.Where(x => x.UserName == userName).First();
-                users.Remove(userToRemove);
+               users.Remove(userToRemove);
 
                 if (userToRemove != null && userToRemove.IsAdmin && users.Count() > 0)
                 {
