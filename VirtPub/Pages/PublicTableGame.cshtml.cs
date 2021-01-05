@@ -22,6 +22,9 @@ namespace VirtPub.Pages
 
         public List<ConnectedUser> UserList = new List<ConnectedUser>();
 
+        [BindProperty(SupportsGet = true)]
+        public Guid Id { get; set; }
+
         [BindProperty(SupportsGet= true)]
         public Dictionary<string,string> SelectedTable {get; set;}
         public PublicTableGameModel(ILogger<PublicTableModel> logger, GameService service)
@@ -33,6 +36,12 @@ namespace VirtPub.Pages
         public async Task OnGet()
         {
             Table = await _service.GetTableById(SelectedTable["id"]);
+            UserList = _service.GetUsersInTableById(Id.ToString());
+        }
+
+        public PartialViewResult OnGetUserListPartial(string tableId)
+        {
+            return Partial("_UserListPartial", _service.GetUsersInTableById(tableId));
         }
     }
 }
