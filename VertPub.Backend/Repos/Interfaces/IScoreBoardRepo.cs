@@ -9,7 +9,7 @@ namespace VertPub.Backend.Repos
     {
         Task<string> CreateScoreBoard(ScoreBoardModel scoreBoard);
         Task<List<ScoreBoardModel>> GetAllScorbords();
-        Task<string> ChangeScoreboard(Guid id);
-        Task<ScoreBoardModel> GetScoreboardByGameId(Guid id);
+        Task<string> ChangeScoreboard(string name, int points,Guid id);
+        Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid id);
     }
 }

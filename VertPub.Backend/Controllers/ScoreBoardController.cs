@@ -10,7 +10,7 @@ namespace VertPub.Backend.Controllers
 {
     [Route("api/v1.0/[controller]")]
     [ApiController]
-    public class ScoreBoardController:ControllerBase
+    public class ScoreBoardController : ControllerBase
     {
         private readonly IScoreBoardRepo _repo;
         public ScoreBoardController(IScoreBoardRepo repo)
@@ -19,15 +19,23 @@ namespace VertPub.Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ScoreBoardModel>>> GetAllScoreBoards() 
+        public async Task<ActionResult<List<ScoreBoardModel>>> GetAllScoreBoards()
         {
             var result = await _repo.GetAllScorbords();
             return Ok(result);
         }
-        [HttpPut]
-        public async Task<ActionResult<List<ScoreBoardModel>>> ChangeScoreBoard(Guid id) 
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<ScoreBoardModel>>> GetScorboardsByGameId(Guid id)
         {
-            var result = await _repo.ChangeScoreboard(id);
+            return await _repo.GetScoreboardByGameId(id);
+
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<List<ScoreBoardModel>>> ChangeScoreBoard(string name, int points,Guid id) 
+        {
+            var result = await _repo.ChangeScoreboard(name,points,id);
             return Ok(result);
         }
 

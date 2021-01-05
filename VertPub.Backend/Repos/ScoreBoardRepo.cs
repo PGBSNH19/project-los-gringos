@@ -35,7 +35,7 @@ namespace VertPub.Backend.Repos
 
         public async Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid id) 
         {
-             return await _context.ScoreBoards.Where(x=>x.gameID==id).OrderBy(z=>z.points).ToListAsync();
+             return await _context.ScoreBoards.Where(x=>x.gameID==id).OrderByDescending(z=>z.points).ToListAsync();
         }
         public async Task<string> ChangeScoreboard(string name,int points,Guid id)
         {
@@ -49,11 +49,11 @@ namespace VertPub.Backend.Repos
                     gameID = id,
                     player = name
                 }) ;
-            }
-            
-           
-
             return "scoreboard uppdated";
+            }
+
+            return "no changes wher made";
+
         }
     }
 }
