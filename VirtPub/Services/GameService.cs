@@ -116,13 +116,12 @@ namespace VirtPub.Services
         {
             try
             {
-                var isUserAdmin = WillUserBeTableAdmin(group);
+                var isUserAdmin = IsTableWithoutAdmin(group);
 
-                var newUser = users.Where(z => z.UserName == userName).ToList();
+                var newUser = users.Where(z => z.UserName == userName).FirstOrDefault();
 
-                if (newUser.Count == 0)
+                if (newUser == null)
                 {
-
                     users.Add(new ConnectedUser()
                     {
                         UserName = userName,
@@ -131,6 +130,12 @@ namespace VirtPub.Services
                         IsAdmin = isUserAdmin
                     });
                 }
+                else
+                {
+                    newUser.ConnectionId = connectionId;
+                    newUser.Group = group;
+                    newUser.IsAdmin = isUserAdmin;
+                }
             }
             catch (System.Exception)
             {
@@ -138,7 +143,7 @@ namespace VirtPub.Services
             }
         }
 
-        private bool WillUserBeTableAdmin(string group)
+        private bool IsTableWithoutAdmin(string group)
         {
             if (users.Where(x => x.Group == group && x.IsAdmin == true).Count() == 0)
                 return true;
@@ -146,16 +151,16 @@ namespace VirtPub.Services
             return false;
         }
 
-        public async Task RemoveUserFromUserList(string userName)
+        public void RemoveUserFromUserList(string userName)
         {
             try
             {
                 var userToRemove = users.Where(x => x.UserName == userName).First();
-               users.Remove(userToRemove);
+                users.Remove(userToRemove);
 
-                if (userToRemove != null && userToRemove.IsAdmin && users.Count() > 0)
+                if (userToRemove != null && userToRemove.IsAdmin && users.Where(x => x.Group == userToRemove.Group).Count() > 0)
                 {
-                    users[0].IsAdmin = true;
+                    users.Where(x => x.Group == userToRemove.Group).FirstOrDefault().IsAdmin = true;
                 }
             }
             catch (System.Exception)
