@@ -1,0 +1,82 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<head>
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
+    <link rel="stylesheet" href="css/site.css">
+    <link href="~/css/publicTable.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+</head>
+
+<div class="text-center">
+    <h2 class="display-4">Los Gringos!</h2>
+</div>
+
+@*<button onclick="window.location.href = '@Url.Page("PrivateTable/@Model.Id")'">Generate private table</button>*@
+@*<a asp-page="/PublicTable/@Model.Id" class="btn btn-primary"> Create Private table</a>*@
+
+<form method="post">
+    <button type="submit" class="btn btn-warning card-shadow index-create">Create Private table</button>
+</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            @foreach (var game in Model.Games)
+            {
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@game.name</h5>
+                        <h6>Min Players: @game.minPlayers</h6>
+                        <h6>Max Players: @game.maxPlayers</h6>
+                        <p class="card-text">beskrivning om spelet placeholder</p>
+
+                        @{
+                            var selectedGameId = new Dictionary<string, string>
+                                                                        {
+                            { "id", game.id.ToString() }
+                        };
+                        }
+
+                        @* <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a> *@
+                        <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-warning">Go To Public Game</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-sm-6 card" style="height: 18rem">
+            <h2 style="margin-bottom: 25px">Highscore</h2>
+                @foreach (var game in Model.Games)
+                {
+                    var scorboards = await Model._service.GetScoreboardByGameId(game.id.ToString());
+                    var count = 0;
+                    if (scorboards.Count() != 0)
+                    {
+
+                        <ul style="list-style:none; color: white">
+                            @foreach (var scoreboard in scorboards)
+                            {
+                                if (count > 4)
+                                {
+                                    break;
+                                }
+                                <li>
+                                    <h4 class="text-dark">  @scoreboard.player :  @scoreboard.points </h4>
+                                </li>
+                                count++;
+                            }
+                        </ul>
+                    }
+                }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">var Group = "lobby"</script>
+
+<partial name="_ChatModalPartial" />

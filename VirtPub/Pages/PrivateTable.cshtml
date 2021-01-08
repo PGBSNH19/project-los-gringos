@@ -1,0 +1,43 @@
+﻿@page
+
+@model VirtPub.Pages.PrivateTableModel
+
+
+<head>
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
+    <link rel="stylesheet" href="css/privateTable.css" type="text/css" />
+    <script type="text/javascript">
+        var Group = "@Model.Id.ToString()";
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="~/css/privategameback.css">
+</head>
+
+<h1>Hi this is a private table</h1>
+
+<div style="display: inline-flex">
+    <h4 id="invite-link" style="color: white; font-size: 0px"></h4>
+    <button class="btn btn-warning" id="inviteBtn">Copy invite link</button>
+    <button class="btn btn-warning" id="inviteByEmailBtn" style="margin-left: 5px;">Invite by email</button>
+</div>
+<div class="games">
+    <h2>Games!</h2>
+    <ul>
+        @foreach (var game in Model.Games)
+        {
+            <li class="game-list"><a href="@game.link">@game.name</a> </li>
+        }
+    </ul>
+
+    <div id="UserListPartial">
+    </div>
+</div>
+
+<script src="~/js/copyToClipboard.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/privateTable.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src ="~/js/InviteByEmail.js"></script>
+
+
+<partial name="_ChatModalPartial" />

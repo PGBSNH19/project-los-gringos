@@ -1,0 +1,35 @@
+@page
+@model PublicTableModel
+@{
+}
+
+<head>
+    <link rel="stylesheet" href="css/ChatModal.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/publicgamebackground.css">
+</head>
+
+
+@foreach (var table in Model.Tables)
+{  
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@table.id</h5>
+            <p class="card-text">beskrivning om spelet placeholder</p>
+
+            @{
+                var selectedTableId = new Dictionary<string, string>
+                        {
+                            { "id", table.id.ToString() }
+                        };
+            }
+
+            <a asp-page="/PublicTableGame" asp-all-route-data="selectedTableId" class="btn btn-warning" style="@(Model.Game.maxPlayers>Model._service.GetUsersInTableById(table.id.ToString()).Count() ? "display:block" : "display:none")">Go To Table</a>
+    </div>
+
+</div>
+}
+
+
+<script type="text/javascript">var Group ="@Model.Game.id"</script>
+
+<partial name="_ChatModalPartial" />
