@@ -6,6 +6,7 @@ Feature: SignIn
         And Correct password.
         When User press the sign in button.
         Then The user is given access to the pub.
+        And is transferred to Lobby
 
     Scenario: Failed sign in due to wrong password
         Given the user has an account
