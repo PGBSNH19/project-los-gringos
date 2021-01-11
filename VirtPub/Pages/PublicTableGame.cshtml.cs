@@ -19,7 +19,7 @@ namespace VirtPub.Pages
 
         private readonly GameService _service;
         public TableModel Table = new TableModel();
-
+        public GameLinksModel Game = new GameLinksModel();
         public List<ConnectedUser> UserList = new List<ConnectedUser>();
 
         [BindProperty(SupportsGet = true)]
@@ -36,6 +36,7 @@ namespace VirtPub.Pages
         public async Task OnGet()
         {
             Table = await _service.GetTableById(SelectedTable["id"]);
+            Game = await _service.GetGameById(Table.gameID.ToString());
             UserList = _service.GetUsersInTableById(Id.ToString());
         }
 

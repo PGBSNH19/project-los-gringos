@@ -100,7 +100,7 @@ namespace VirtPub.Services
             var table = new TableModel();
             table.id = Guid.NewGuid();
             table.isPrivate = false;
-            table.game = Game;
+            table.gameID = Game.id;
 
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(table);
             var data = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
@@ -151,7 +151,7 @@ namespace VirtPub.Services
             try
             {
                 var userToRemove = users.Where(x => x.UserName == userName).First();
-               users.Remove(userToRemove);
+                users.Remove(userToRemove);
 
                 if (userToRemove != null && userToRemove.IsAdmin && users.Count() > 0)
                 {

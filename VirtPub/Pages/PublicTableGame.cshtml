@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="~/css/privategameback.css">
 </head>
 
-<h1>@Model.Table.game.name</h1>
+<h1>@Model.Game.name</h1>
 
- <a href="@Model.Table.game.link" class="btn btn-warning" style="color:black">Go To Game</a>
+ <a href="@Model.Game.link" class="btn btn-warning" style="color:black">Go To Game</a>
 
 <div class="Scoreboard">
 
@@ -29,5 +29,5 @@
 
 <script src="~/js/privateTable.js"></script>
 <iframe id="inlineFrameExample" title="Inline Frame Example" width="700px" height="700px"
-        src="@Model.Table.game.link"
+        src="@Model.Game.link"
     </iframe>
