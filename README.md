@@ -28,10 +28,50 @@ You will also be able to create private tables that you can play with just your 
 - Frontend: .net 5.0 web app
 - Chat: SignalR + JQuery/JS
 
+### To get started as a dev
+
+1. Clone this repository
+2. Add appsettings.Development.json to both VirtPub and VertPub.Backend with following:
+````
+[Frontend/ VirtPub]
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "User ID= ID_HERE;Password= PASSWORD_HERE;Server= SERVERNAME_HERE;Database=DBNAME_HERE;"
+    },
+  "DevBackendURI": "http://localhost:4000/"
+}
+
+
+[Backend/VertPub.Backend]
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "User ID= ID_HERE;Password= PASSWORD_HERE;Server= SERVERNAME_HERE;Database=DBNAME_HERE;"
+    }
+}
+````
+3. Run this command for both projects `dotnet ef database update -contex THEN_CONTEXTNAME`
 ### DB Setup (local env)
-Download Postgresql <https://www.postgresql.org/>
-Dowload PG Admin <https://www.pgadmin.org/>
-Follow instructions <https://www.pgadmin.org/docs/pgadmin4/latest/index.html>
+- Download Postgresql <https://www.postgresql.org/>
+- Dowload PG Admin <https://www.pgadmin.org/>
+- Follow instructions <https://www.pgadmin.org/docs/pgadmin4/latest/index.html>
 
 ### Usage
 Go to <http://losvirtpub.herokuapp.com>
