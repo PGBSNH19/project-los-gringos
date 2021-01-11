@@ -22,11 +22,61 @@ In all the different lobbies you will be able to chat with other people that are
 You will also be able to create private tables that you can play with just your friends, or join public tables if there is room.
 
 ### Tech Stack
-Hosting: Heroku
-DB: PostgreSQL
-Backend: .net 5.0
-Frontend: .net 5.0 web app
-Chat: SignalR + JQuery/JS
+- Hosting: Heroku
+- DB: PostgreSQL
+- Backend: .net 5.0
+- Frontend: .net 5.0 web app
+- Chat: SignalR + JQuery/JS
+
+### To get started as a dev
+1. First follow DB Setup (local env)
+2. Clone this repository
+3. Add appsettings.Development.json to both VirtPub and VertPub.Backend with following:
+````
+[Frontend/ VirtPub]
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "User ID= ID_HERE;Password= PASSWORD_HERE;Server= SERVERNAME_HERE;Database=DBNAME_HERE;"
+    },
+  "DevBackendURI": "http://localhost:4000/"
+}
+````
+</br>
+
+</br>
+
+````
+[Backend/VertPub.Backend]
+{
+  "DetailedErrors": true,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "User ID= ID_HERE;Password= PASSWORD_HERE;Server= SERVERNAME_HERE;Database=DBNAME_HERE;"
+    }
+}
+````
+4. Run this command for both projects `dotnet ef database update -contex THEN_CONTEXTNAME`
+
+### DB Setup (local env)
+- Download Postgresql <https://www.postgresql.org/>
+- Dowload PG Admin <https://www.pgadmin.org/>
+- Follow instructions <https://www.pgadmin.org/docs/pgadmin4/latest/index.html>
 
 ### Usage
 Go to <http://losvirtpub.herokuapp.com>
