@@ -18,7 +18,7 @@ namespace VertPub.Backend.Repos
 
         public async Task<TableModel> GetTableById(string id)
         {
-            var table = await _context.Tables.Include(x => x.game).FirstOrDefaultAsync(x => x.id.ToString() == id);
+            var table = await _context.Tables.FirstOrDefaultAsync(x => x.id.ToString() == id);
             return table;
         }
 
@@ -29,20 +29,27 @@ namespace VertPub.Backend.Repos
 
         public async Task<List<TableModel>> GetTablesLinkedToGame(string id)
         {
-            return await _context.Tables.Where(x => x.game.id.ToString() == id).ToListAsync();
+            return await _context.Tables.Where(x => x.gameID.ToString() == id).ToListAsync();
         }
 
         public async Task<string> CreateTable(TableModel table)
         {
-            table.game = await _context.GameLinks.FirstOrDefaultAsync(x => x.id == table.game.id);
-
-            _context.Tables.Add(table);
-            var result = await _context.SaveChangesAsync();
+            
+            await _context.Tables.AddAsync(table);
+            var result =  await _context.SaveChangesAsync();
             if (result <= 0)
             {
                 return "something went wrong";
             }
             return "table created";
+        }
+
+        public async Task<int> DeleteTable(Guid id)
+        {
+            var table= await GetTableById(id.ToString());
+            var result =_context.Tables.Remove(table);
+            var deletedObjects = await _context.SaveChangesAsync();
+                return deletedObjects ;
         }
     }
 }

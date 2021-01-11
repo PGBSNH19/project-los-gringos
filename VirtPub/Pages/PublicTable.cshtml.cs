@@ -32,11 +32,28 @@ namespace VirtPub.Pages
             Game = await _service.GetGameById(selectedGame["id"]);
             Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
 
-            if (Tables == null || Tables.Count() < 1)
+            //if (Tables == null || Tables.Count() < 1)
+            //{
+            //    await _service.CreateTable(Game);
+            //    Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
+            //}
+            var fullTables = 0;
+            var emtyTables = 0;
+            foreach (var table in Tables)
+            {
+                var peopleOnTable = _service.GetUsersInTableById(table.id.ToString()).Count();
+                if (Game.maxPlayers <= peopleOnTable)
+                {
+                    fullTables++;
+                }
+                emtyTables++;
+            }
+            if (fullTables==Tables.Count())
             {
                 await _service.CreateTable(Game);
                 Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
             }
+           
         }
     }
 }
