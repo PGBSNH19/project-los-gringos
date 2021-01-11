@@ -30,9 +30,6 @@ namespace VirtPub.Services
             client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
             _configuration = configuration;
             Client = client;
-
-            // var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
-            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
         }
 
         public async Task<GameLinksModel> GetGameById(string id)
