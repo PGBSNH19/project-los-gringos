@@ -22,11 +22,16 @@ In all the different lobbies you will be able to chat with other people that are
 You will also be able to create private tables that you can play with just your friends, or join public tables if there is room.
 
 ### Tech Stack
-Hosting: Heroku
-DB: PostgreSQL
-Backend: .net 5.0
-Frontend: .net 5.0 web app
-Chat: SignalR + JQuery/JS
+- Hosting: Heroku
+- DB: PostgreSQL
+- Backend: .net 5.0
+- Frontend: .net 5.0 web app
+- Chat: SignalR + JQuery/JS
+
+### DB Setup (local env)
+Download Postgresql <https://www.postgresql.org/>
+Dowload PG Admin <https://www.pgadmin.org/>
+Follow instructions <https://www.pgadmin.org/docs/pgadmin4/latest/index.html>
 
 ### Usage
 Go to <http://losvirtpub.herokuapp.com>
