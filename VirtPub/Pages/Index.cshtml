@@ -22,51 +22,60 @@
 <form method="post">
     <button type="submit" class="btn btn-warning card-shadow index-create">Create Private table</button>
 </form>
-@foreach (var game in Model.Games)
-{
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">@game.name</h5>
-            <h6>Min Players: @game.minPlayers</h6>
-            <h6>Max Players: @game.maxPlayers</h6>
-            <p class="card-text">beskrivning om spelet placeholder</p>
 
-            @{
-                var selectedGameId = new Dictionary<string, string>
-                        {
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            @foreach (var game in Model.Games)
+            {
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@game.name</h5>
+                        <h6>Min Players: @game.minPlayers</h6>
+                        <h6>Max Players: @game.maxPlayers</h6>
+                        <p class="card-text">beskrivning om spelet placeholder</p>
+
+                        @{
+                            var selectedGameId = new Dictionary<string, string>
+                                                                        {
                             { "id", game.id.ToString() }
                         };
-            }
+                        }
 
-            @* <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a> *@
-            <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-warning">Go To Public Game</a>
+                        @* <a href="@Url.Page("PublicTable")" class="btn btn-primary">Go To Public Table</a> *@
+                        <a asp-page="/PublicTable" asp-all-route-data="selectedGameId" class="btn btn-warning">Go To Public Game</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-sm-6 card" style="height: 18rem">
+            <h2 style="margin-bottom: 25px">Highscore</h2>
+                @foreach (var game in Model.Games)
+                {
+                    var scorboards = await Model._service.GetScoreboardByGameId(game.id.ToString());
+                    var count = 0;
+                    if (scorboards.Count() != 0)
+                    {
+
+                        <ul style="list-style:none; color: white">
+                            @foreach (var scoreboard in scorboards)
+                            {
+                                if (count > 4)
+                                {
+                                    break;
+                                }
+                                <li>
+                                    <h4 class="text-dark">  @scoreboard.player :  @scoreboard.points </h4>
+                                </li>
+                                count++;
+                            }
+                        </ul>
+                    }
+                }
         </div>
     </div>
-}
+</div>
 
-@foreach (var game in Model.Games)
-{
-    var scorboards = await Model._service.GetScoreboardByGameId(game.id.ToString());
-    var count = 0;
-    if (scorboards.Count() != 0)
-    {
-
-        <ul>
-            @foreach (var scoreboard in scorboards)
-            {
-                if (count > 4)
-                {
-                    break;
-                }
-                    <li>
-                        <p>  @scoreboard.player :  @scoreboard.points </p>
-                    </li>
-                count++;
-            }
-        </ul>
-    }
-
-}
 
 <script type="text/javascript">var Group = "lobby"</script>
 
