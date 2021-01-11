@@ -49,8 +49,12 @@ You will also be able to create private tables that you can play with just your 
     },
   "DevBackendURI": "http://localhost:4000/"
 }
+````
+</br>
 
+</br>
 
+````
 [Backend/VertPub.Backend]
 {
   "DetailedErrors": true,
