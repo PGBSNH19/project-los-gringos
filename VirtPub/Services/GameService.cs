@@ -108,7 +108,14 @@ namespace VirtPub.Services
             var response = await Client.PostAsync(
                 "api/v1.0/Table", data);
 
-            string result = response.Content.ReadAsStringAsync().Result;
+            string result = await response.Content.ReadAsStringAsync();
+            return result;
+        }
+
+        public async Task<string> RemoveTableByID(Guid id)
+        {
+            var response = await Client.DeleteAsync($"api/v1.0/Table?id={id}");
+            string result = await response.Content.ReadAsStringAsync();
             return result;
         }
 

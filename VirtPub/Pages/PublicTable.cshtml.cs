@@ -16,7 +16,7 @@ namespace VirtPub.Pages
     public class PublicTableModel : PageModel
     {
         private readonly ILogger<PublicTableModel> _logger;
-       public GameService _service;
+        public GameService _service;
         public IEnumerable<TableModel> Tables = new List<TableModel>();
         public GameLinksModel Game = new GameLinksModel();
         public List<ConnectedUser> UserList = new List<ConnectedUser>();
@@ -38,7 +38,7 @@ namespace VirtPub.Pages
             //    Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
             //}
             var fullTables = 0;
-            var emtyTables = 0;
+            var emtyTables = new List<Guid>();
             foreach (var table in Tables)
             {
                 var peopleOnTable = _service.GetUsersInTableById(table.id.ToString()).Count();
@@ -46,14 +46,23 @@ namespace VirtPub.Pages
                 {
                     fullTables++;
                 }
-                emtyTables++;
+                if (peopleOnTable == 0)
+                {
+                    emtyTables.Add(table.id);
+                }
             }
-            if (fullTables==Tables.Count())
+            foreach (var item in emtyTables)
+            {
+                await _service.RemoveTableByID(item);
+
+            }
+            if (fullTables == Tables.Count())
             {
                 await _service.CreateTable(Game);
                 Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
             }
-           
+
+
         }
     }
 }
