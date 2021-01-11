@@ -29,9 +29,9 @@ You will also be able to create private tables that you can play with just your 
 - Chat: SignalR + JQuery/JS
 
 ### To get started as a dev
-
-1. Clone this repository
-2. Add appsettings.Development.json to both VirtPub and VertPub.Backend with following:
+1. First follow DB Setup (local env)
+2. Clone this repository
+3. Add appsettings.Development.json to both VirtPub and VertPub.Backend with following:
 ````
 [Frontend/ VirtPub]
 {
@@ -71,7 +71,8 @@ You will also be able to create private tables that you can play with just your 
     }
 }
 ````
-3. Run this command for both projects `dotnet ef database update -contex THEN_CONTEXTNAME`
+4. Run this command for both projects `dotnet ef database update -contex THEN_CONTEXTNAME`
+
 ### DB Setup (local env)
 - Download Postgresql <https://www.postgresql.org/>
 - Dowload PG Admin <https://www.pgadmin.org/>
