@@ -6,7 +6,7 @@ Feature: User sends a message in the chat
         And it's not an empty string
         When user clicks on Send button
         Then the message is sent
-        And all the users at that table can see the message
+        And all the users at that chatgroup can read the message
 
     Scenario: User tries to send an empty message
         Given the user hasn't written anything
