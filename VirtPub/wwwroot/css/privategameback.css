@@ -31,3 +31,10 @@ a:active {
     list-style: none;
     font-size: 2rem;
 }
+
+@media screen and (max-width: 600px) {
+    #inviteBtn {
+        display: none;
+    }
+}
+
