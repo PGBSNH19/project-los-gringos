@@ -24,6 +24,7 @@ namespace VirtPub.Services
 
             var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
             client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
+            
             _configuration = configuration;
             Client = client;
         }
