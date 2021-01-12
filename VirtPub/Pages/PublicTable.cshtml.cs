@@ -31,7 +31,7 @@ namespace VirtPub.Pages
         {
             Game = await _service.GetGameById(selectedGame["id"]);
             Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
-
+            
             //if (Tables == null || Tables.Count() < 1)
             //{
             //    await _service.CreateTable(Game);
