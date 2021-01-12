@@ -17,7 +17,9 @@ namespace VirtPub.Pages
     {
         private readonly ILogger<PublicTableModel> _logger;
 
-        private readonly GameService _service;
+        private readonly UserService _service;
+        private readonly TableService _tableService;
+        private readonly GameService _gameService;
         public TableModel Table = new TableModel();
         public GameLinksModel Game = new GameLinksModel();
         public List<ConnectedUser> UserList = new List<ConnectedUser>();
@@ -27,17 +29,19 @@ namespace VirtPub.Pages
 
         [BindProperty(SupportsGet= true)]
         public Dictionary<string,string> SelectedTable {get; set;}
-        public PublicTableGameModel(ILogger<PublicTableModel> logger, GameService service)
+        public PublicTableGameModel(ILogger<PublicTableModel> logger, UserService service, TableService tableService, GameService gameService)
         {
             _logger = logger;
             _service = service;
+            _tableService = tableService;
+            _gameService = gameService;
         }
-        
+
         public async Task<ActionResult> OnGet()
         {
             var id = SelectedTable["id"];
-            Table = await _service.GetTableById(SelectedTable["id"]);
-            Game = await _service.GetGameById(Table.gameID.ToString());
+            Table = await _tableService.GetTableById(SelectedTable["id"]);
+            Game = await _gameService.GetGameById(Table.gameID.ToString());
             UserList = _service.GetUsersInTableById(Id.ToString());
             if (UserList.Count>=Game.maxPlayers)
             {
