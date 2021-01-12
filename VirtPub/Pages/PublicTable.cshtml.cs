@@ -51,11 +51,17 @@ namespace VirtPub.Pages
                     emtyTables.Add(table.id);
                 }
             }
-            foreach (var item in emtyTables)
-            {
-                await _service.RemoveTableByID(item);
+           
 
-            }
+                for (int i = 0; i < emtyTables.Count()-1; i++)
+                {
+
+                    await _service.RemoveTableByID(emtyTables[i]);
+                }
+
+            Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
+
+
             if (fullTables == Tables.Count())
             {
                 await _service.CreateTable(Game);

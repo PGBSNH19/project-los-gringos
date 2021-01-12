@@ -35,6 +35,7 @@ namespace VirtPub.Pages
         
         public async Task OnGet()
         {
+            var id = SelectedTable["id"];
             Table = await _service.GetTableById(SelectedTable["id"]);
             Game = await _service.GetGameById(Table.gameID.ToString());
             UserList = _service.GetUsersInTableById(Id.ToString());
