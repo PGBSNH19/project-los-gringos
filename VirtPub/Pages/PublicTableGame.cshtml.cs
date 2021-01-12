@@ -33,12 +33,17 @@ namespace VirtPub.Pages
             _service = service;
         }
         
-        public async Task OnGet()
+        public async Task<ActionResult> OnGet()
         {
             var id = SelectedTable["id"];
             Table = await _service.GetTableById(SelectedTable["id"]);
             Game = await _service.GetGameById(Table.gameID.ToString());
             UserList = _service.GetUsersInTableById(Id.ToString());
+            if (UserList.Count>=Game.maxPlayers)
+            {
+                 return RedirectToPage("/Index");
+            }
+            return null;
         }
 
         public PartialViewResult OnGetUserListPartial(string tableId)
