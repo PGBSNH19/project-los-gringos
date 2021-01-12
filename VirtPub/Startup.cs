@@ -42,6 +42,9 @@ namespace VirtPub
             services.AddSignalR();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient<GameService>();
+            services.AddHttpClient<ScoreboardService>();
+            services.AddHttpClient<TableService>();
+            services.AddHttpClient<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
