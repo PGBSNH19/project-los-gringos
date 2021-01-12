@@ -6,5 +6,6 @@ namespace VirtPub.Models
         public string ConnectionId;
         public string Group;
         public bool IsAdmin;
+        public int Score;
     }
 }

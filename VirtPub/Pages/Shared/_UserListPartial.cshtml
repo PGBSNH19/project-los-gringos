@@ -9,10 +9,14 @@
         {
             <li class="list-group-item">
                 <div class="row">
-                    <p class="userNameListItem" style="color: black;"> @user.UserName</p>
+                    <p class="margin-left" style="color: black;"> @user.UserName</p>
                     @if (user.IsAdmin)
                     {
                         <i class='adminIcon fas fa-crown' style='font-size:1rem;color:gold'></i>
+                    }
+                    @if (user.Score != 0)
+                    {
+                        <p class="margin-left" style="color: black;"> | Current Score: <b>@user.Score</b></p>
                     }
                 </div>
             </li>
