@@ -14,21 +14,24 @@ namespace VirtPub.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        public  GameService _service;
+        public  ScoreboardService _service;
+        private readonly GameService _gameService;
+
         [BindProperty]
         public Guid Id { get; set; }
         public IEnumerable<GameLinksModel> Games = new List<GameLinksModel>();
 
 
-        public IndexModel(ILogger<IndexModel> logger, GameService service)
+        public IndexModel(ILogger<IndexModel> logger, ScoreboardService service, GameService gameService)
         {
             _logger = logger;
             _service = service;
+            _gameService = gameService;
         }
 
         public async Task OnGet()
         {
-            Games = await _service.GetGames();
+            Games = await _gameService.GetGames();
         }
 
         public IActionResult OnPost()

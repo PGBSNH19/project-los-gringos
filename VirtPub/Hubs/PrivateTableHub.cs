@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using VirtPub.Models;
 using VirtPub.Services;
 
@@ -12,24 +9,24 @@ namespace VirtPub.Hubs
     public class PrivateTableHub : Hub
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly GameService _service;
+        private readonly UserService _userService;
 
-        public PrivateTableHub(IHttpContextAccessor httpContextAccessor, GameService service)
+        public PrivateTableHub(IHttpContextAccessor httpContextAccessor,UserService userService)
         {
-            _service = service;
+            _userService = userService;
             _httpContextAccessor = httpContextAccessor;
         }
 
         public List<ConnectedUser> UpdateUserList(string group)
         {
-            return _service.GetUsersInTableById(group);
+            return _userService.GetUsersInTableById(group);
         }
 
         public async void AddUserToUserList(string group)
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             await Groups.AddToGroupAsync(Context.ConnectionId.ToString(), group);
-            _service.AddUserToUserList(userName, group, Context.ConnectionId);
+            _userService.AddUserToUserList(userName, group, Context.ConnectionId);
 
             await Clients.Group(group).SendAsync("UpdateUserList");
         }
@@ -38,7 +35,7 @@ namespace VirtPub.Hubs
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             await Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
-            _service.RemoveUserFromUserList(userName);
+            _userService.RemoveUserFromUserList(userName);
 
             await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("UpdateUserList");
         }

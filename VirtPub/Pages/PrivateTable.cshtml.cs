@@ -16,13 +16,15 @@ namespace VirtPub.Pages
     [Authorize]
     public class PrivateTableModel : PageModel
     {
-        private readonly GameService _service;
+        private readonly UserService _service;
+        private readonly GameService _gameService;
         public List<GameLinksModel> Games = new List<GameLinksModel>();
         public List<ConnectedUser> UserList = new List<ConnectedUser>();
 
-        public PrivateTableModel(GameService service)
+        public PrivateTableModel(UserService service, GameService gameService)
         {
             _service = service;
+            _gameService = gameService;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -33,7 +35,7 @@ namespace VirtPub.Pages
             if(Id == Guid.Empty)
                 return RedirectToPage("/Index");
 
-            Games = await _service.GetGames();
+            Games = await _gameService.GetGames();
 
             UserList = _service.GetUsersInTableById(Id.ToString());
             return Page();
