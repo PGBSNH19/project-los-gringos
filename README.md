@@ -9,6 +9,10 @@ Members: Fredrik, William, Eric, Sebastian, Murat, Isach, Emelie, Meena, Saritha
 ### Background
 Los Gringos is meant to be a "local" virtual pub for you and your friends.
 
+### Confluence (Documentation)
+
+- [Documentation](https://plushogskolan.atlassian.net/wiki/spaces/G3/overview?homepageId=64028990)
+
 ### Description (high level)
 You need to register an account to be able to "enter" the pub. Once registered you enter the lobby!
 
