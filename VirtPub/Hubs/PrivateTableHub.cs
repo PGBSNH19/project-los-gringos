@@ -38,7 +38,7 @@ namespace VirtPub.Hubs
         {
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             await Groups.RemoveFromGroupAsync(Context.ConnectionId.ToString(), group);
-            await _service.RemoveUserFromUserList(userName);
+            _service.RemoveUserFromUserList(userName);
 
             await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("UpdateUserList");
         }
