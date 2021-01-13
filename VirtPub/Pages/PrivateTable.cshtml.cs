@@ -43,7 +43,7 @@ namespace VirtPub.Pages
 
         public PartialViewResult OnGetUserListPartial(string tableId)
         {
-            return Partial("_UserListPartial", _service.GetUsersInTableById(tableId));
+            return Partial("_UserListPartial", _service.GetUsersInTableById(tableId).OrderByDescending(x => x.Score).ToList());
         }
     }
 }

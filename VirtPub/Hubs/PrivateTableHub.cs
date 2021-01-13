@@ -39,5 +39,28 @@ namespace VirtPub.Hubs
 
             await Clients.GroupExcept(group, Context.ConnectionId).SendAsync("UpdateUserList");
         }
+
+        public void UpdateScoreForPlayer(string userName, string score, string group)
+        {
+            _userService.SetNewScoreForUser(userName, score);
+            
+            Clients.Group(group).SendAsync("UpdateUserList");
+        }
+
+        public void SendScoreSuggestion(string scoreSuggestion, string group)
+        {
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+
+            var admin = _userService.GetTableAdmin(group);
+            if (admin == null) return;
+
+            if (admin.UserName == userName)
+            {
+                UpdateScoreForPlayer(userName, scoreSuggestion, group);
+                Clients.Group(group).SendAsync("UpdateUserList");
+            }
+            else
+                Clients.Client(admin.ConnectionId).SendAsync("SendScoreSuggestionToAdmin", scoreSuggestion, userName);
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using VirtPub.Models;
 
@@ -61,6 +62,31 @@ namespace VirtPub.Services
             catch (System.Exception)
             {
                 System.Console.WriteLine("Unable to add the user to the list: Users");
+            }
+        }
+
+        public void SetNewScoreForUser(string userName, string score)
+        {
+            try
+            {
+                int parsedScore = Int32.Parse(score);
+                users.Where(x => x.UserName == userName).First().Score = parsedScore;
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
+        }
+
+        public ConnectedUser GetTableAdmin(string group)
+        {
+            try
+            {
+                return users.Where(x => x.Group == group && x.IsAdmin == true).First();
+            }
+            catch (System.Exception)
+            {
+                return null;
             }
         }
 
