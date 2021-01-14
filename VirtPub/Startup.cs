@@ -27,7 +27,7 @@ namespace VirtPub
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            if (connectionString == null || connectionString == "")
+            if (string.IsNullOrEmpty(connectionString))
                 connectionString = GetConnectionString();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -42,7 +42,11 @@ namespace VirtPub
             services.AddSignalR();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient<GameService>();
-
+            services.AddHttpClient<GameService>("api", client =>
+            {
+                var baseAddress = client.BaseAddress = Configuration.GetValue<Uri>("DevBackendURI");
+                client.BaseAddress = baseAddress == null ? Configuration.GetValue<Uri>("ProdBackendURI") : baseAddress;
+            });
             services.AddHttpClient<ScoreboardService>();
             services.AddHttpClient<TableService>();
             services.AddHttpClient<UserService>();
@@ -79,7 +83,7 @@ namespace VirtPub
             });
         }
 
-        private string GetConnectionString()
+        private static string GetConnectionString()
         {
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var databaseUri = new Uri(databaseUrl);

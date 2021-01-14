@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -13,21 +10,17 @@ namespace VirtPub.Services
     public class GameService
     {
         private HttpClient Client { get; }
-        private static List<ConnectedUser> users = new List<ConnectedUser>();
         private readonly IConfiguration _configuration;
 
-        public GameService(HttpClient client, IConfiguration configuration)
+        public GameService(HttpClient client, IConfiguration configuration, IHttpClientFactory clientFactory)
         {
-            HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var clientHandler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
 
             client = new HttpClient(clientHandler);
-
-            _configuration = configuration;
-            Client = client;
-
-            var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
-            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
+            client = clientFactory.CreateClient("api");
             _configuration = configuration;
             Client = client;
         }

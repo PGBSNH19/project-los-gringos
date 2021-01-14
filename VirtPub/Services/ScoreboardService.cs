@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
@@ -14,18 +13,15 @@ namespace VirtPub.Services
         private HttpClient Client { get; }
         private readonly IConfiguration _configuration;
 
-        public ScoreboardService(HttpClient client, IConfiguration configuration)
+        public ScoreboardService(HttpClient client, IConfiguration configuration, IHttpClientFactory clientFactory)
         {
-            HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var clientHandler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
 
             client = new HttpClient(clientHandler);
-
-            _configuration = configuration;
-            Client = client;
-
-            var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
-            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
+            client = clientFactory.CreateClient("api");
             _configuration = configuration;
             Client = client;
         }

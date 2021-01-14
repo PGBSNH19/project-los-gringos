@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using VirtPub.Models;
 using VirtPub.Services;
 
 namespace VirtPub.Hubs
@@ -22,7 +17,7 @@ namespace VirtPub.Hubs
 
         public void SendMessageToGroup(string message, string group)
         {
-            string userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             Clients.Group(group).SendAsync("ReceiveMessage", userName, message);
         }
 
