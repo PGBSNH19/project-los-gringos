@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 using System;
+using System.Net.Http;
 using VirtPub.Data;
 using VirtPub.Hubs;
 using VirtPub.Services;
@@ -46,7 +47,13 @@ namespace VirtPub
             {
                 var baseAddress = client.BaseAddress = Configuration.GetValue<Uri>("DevBackendURI");
                 client.BaseAddress = baseAddress == null ? Configuration.GetValue<Uri>("ProdBackendURI") : baseAddress;
-            });
+            })
+            .ConfigureHttpMessageHandlerBuilder(c => 
+                new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                }
+            );
             services.AddHttpClient<ScoreboardService>();
             services.AddHttpClient<TableService>();
             services.AddHttpClient<UserService>();

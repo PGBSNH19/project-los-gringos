@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using Microsoft.Extensions.Configuration;
 using VirtPub.Models;
 
 namespace VirtPub.Services
@@ -10,20 +9,13 @@ namespace VirtPub.Services
     public class UserService
     {
         private HttpClient Client { get; }
-        private readonly IConfiguration _configuration;
         private static readonly List<ConnectedUser> Users = new List<ConnectedUser>();
-        public UserService(HttpClient client, IConfiguration configuration, IHttpClientFactory clientFactory)
+        public UserService(HttpClient client, IHttpClientFactory clientFactory)
         {
-            var clientHandler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-            };
-
-            client = new HttpClient(clientHandler);
             client = clientFactory.CreateClient("api");
-            _configuration = configuration;
             Client = client;
         }
+
         public List<ConnectedUser> GetUsersInTableById(string group)
         {
             return Users.Where(x => x.Group == group).ToList();
