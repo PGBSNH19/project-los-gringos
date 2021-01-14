@@ -36,9 +36,5 @@ namespace VertPub.Backend.Controllers
             var result = await _repo.CreateScoreBoard(scoreBoard);
             return Ok(result);
         }
-
-
-
-
     }
 }

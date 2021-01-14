@@ -47,7 +47,7 @@ namespace VertPub.Backend.Repos
         public async Task<int> DeleteTable(Guid id)
         {
             var table = await GetTableById(id.ToString());
-            var result = _context.Tables.Remove(table);
+            _context.Tables.Remove(table);
             var deletedObjects = await _context.SaveChangesAsync();
             return deletedObjects;
         }

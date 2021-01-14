@@ -40,11 +40,13 @@ namespace VertPub.Backend.Controllers
             var result = await _repo.GetAllTables();
             return Ok(result);
         }
+
         [HttpDelete]
         public async Task<int> DeleteTable(Guid id)
         {
             return await _repo.DeleteTable(id);
         }
+
         [HttpPost]
         public async Task<ActionResult<string>> CreateTable([FromBody] TableModel table)
         {

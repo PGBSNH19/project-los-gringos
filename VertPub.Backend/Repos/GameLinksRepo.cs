@@ -21,13 +21,14 @@ namespace VertPub.Backend.Repos
 
         public async Task<string> AddGame(GameLinksModel game)
         {
-            _context.GameLinks.Add(game);
+            await _context.GameLinks.AddAsync(game);
             var result = await _context.SaveChangesAsync();
 
             if (result > 0)
             {
                 return "Game created";
             }
+
             return "Something went wrong game not created";
         }
 

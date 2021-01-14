@@ -1,19 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using VertPub.Backend.Context;
 using VertPub.Backend.Repos;
 
@@ -32,7 +25,7 @@ namespace VertPub.Backend
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultBackendConnection");
-            if (connectionString == null || connectionString == "")
+            if (string.IsNullOrEmpty(connectionString))
                 connectionString = GetConnectionString();
 
             services.AddDbContext<VirtpubContext>(options =>
@@ -76,7 +69,7 @@ namespace VertPub.Backend
             });
         }
 
-        private string GetConnectionString()
+        private static string GetConnectionString()
         {
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var databaseUri = new Uri(databaseUrl);
