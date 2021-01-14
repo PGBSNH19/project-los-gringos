@@ -13,6 +13,7 @@ namespace VertPub.Backend.Controllers
     public class TableController : ControllerBase
     {
         private readonly ITableRepo _repo;
+
         public TableController(ITableRepo repo)
         {
             _repo = repo;
@@ -53,6 +54,7 @@ namespace VertPub.Backend.Controllers
             var result = await _repo.CreateTable(table);
             return Ok(result);
         }
+
     }
 }
 
