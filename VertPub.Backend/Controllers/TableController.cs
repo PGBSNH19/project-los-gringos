@@ -41,7 +41,7 @@ namespace VertPub.Backend.Controllers
             return Ok(result);
         }
         [HttpDelete]
-        public async Task<int> DeleteTable(Guid id) 
+        public async Task<int> DeleteTable(Guid id)
         {
             return await _repo.DeleteTable(id);
         }

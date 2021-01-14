@@ -34,22 +34,22 @@ namespace VertPub.Backend.Repos
 
         public async Task<string> CreateTable(TableModel table)
         {
-            
+
             await _context.Tables.AddAsync(table);
-            var result =  await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
             if (result <= 0)
             {
-                return "something went wrong";
+                return "Something went wrong";
             }
-            return "table created";
+            return "Table created";
         }
 
         public async Task<int> DeleteTable(Guid id)
         {
-            var table= await GetTableById(id.ToString());
-            var result =_context.Tables.Remove(table);
+            var table = await GetTableById(id.ToString());
+            var result = _context.Tables.Remove(table);
             var deletedObjects = await _context.SaveChangesAsync();
-                return deletedObjects ;
+            return deletedObjects;
         }
     }
 }

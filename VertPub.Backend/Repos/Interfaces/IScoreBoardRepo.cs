@@ -7,7 +7,7 @@ namespace VertPub.Backend.Repos
 {
     public interface IScoreBoardRepo
     {
-        Task<List<ScoreBoardModel>> GetAllScorbords();
+        Task<List<ScoreBoardModel>> GetAllScoreboards();
         Task<string> CreateScoreBoard(ScoreBoardModel scoreBoard);
         Task<List<ScoreBoardModel>> GetScoreboardByGameId(Guid id);
     }

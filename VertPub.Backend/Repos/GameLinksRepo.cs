@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using VertPub.Backend.Context;
 using VertPub.Backend.Models;
@@ -22,16 +19,16 @@ namespace VertPub.Backend.Repos
             return games;
         }
 
-        public async Task<string> AddGame(GameLinksModel game) 
+        public async Task<string> AddGame(GameLinksModel game)
         {
             _context.GameLinks.Add(game);
             var result = await _context.SaveChangesAsync();
 
-            if (result>0)
+            if (result > 0)
             {
-                return "Game created" ;
+                return "Game created";
             }
-            return "Somthing went wrong game not created";
+            return "Something went wrong game not created";
         }
 
         public async Task<GameLinksModel> GetGameById(string id)

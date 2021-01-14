@@ -20,24 +20,24 @@ namespace VertPub.Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ScoreBoardModel>>> GetAllScoreBoards()
         {
-            var result = await _repo.GetAllScorbords();
+            var result = await _repo.GetAllScoreboards();
             return Ok(result);
         }
 
         [HttpGet("{sportId}")]
-        public async Task<ActionResult<List<ScoreBoardModel>>> GetScorboardsByGameId(Guid sportId)
+        public async Task<ActionResult<List<ScoreBoardModel>>> GetScoreboardsByGameId(Guid sportId)
         {
             return Ok(await _repo.GetScoreboardByGameId(sportId));
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<ScoreBoardModel>>> ChangeScoreBoard([FromBody] ScoreBoardModel scoreBoard) 
+        public async Task<ActionResult<List<ScoreBoardModel>>> ChangeScoreBoard([FromBody] ScoreBoardModel scoreBoard)
         {
             var result = await _repo.CreateScoreBoard(scoreBoard);
             return Ok(result);
         }
 
-      
+
 
 
     }
