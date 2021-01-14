@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using VertPub.Backend.Models;
 using VertPub.Backend.Repos;
@@ -43,7 +41,7 @@ namespace VertPub.Backend.Controllers
             return Ok(result);
         }
         [HttpDelete]
-        public async Task<int> DeleteTable(Guid id) 
+        public async Task<int> DeleteTable(Guid id)
         {
             return await _repo.DeleteTable(id);
         }
