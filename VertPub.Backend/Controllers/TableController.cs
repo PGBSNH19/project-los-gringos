@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using VertPub.Backend.Models;
 using VertPub.Backend.Repos;
@@ -15,6 +13,7 @@ namespace VertPub.Backend.Controllers
     public class TableController : ControllerBase
     {
         private readonly ITableRepo _repo;
+
         public TableController(ITableRepo repo)
         {
             _repo = repo;
@@ -42,17 +41,20 @@ namespace VertPub.Backend.Controllers
             var result = await _repo.GetAllTables();
             return Ok(result);
         }
+
         [HttpDelete]
-        public async Task<int> DeleteTable(Guid id) 
+        public async Task<int> DeleteTable(Guid id)
         {
             return await _repo.DeleteTable(id);
         }
+
         [HttpPost]
         public async Task<ActionResult<string>> CreateTable([FromBody] TableModel table)
         {
             var result = await _repo.CreateTable(table);
             return Ok(result);
         }
+
     }
 }
 

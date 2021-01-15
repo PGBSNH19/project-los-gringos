@@ -1,12 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using VirtPub.Models;
 using VirtPub.Services;
 
@@ -41,8 +39,9 @@ namespace VirtPub.Pages
             //    await _service.CreateTable(Game);
             //    Tables = await _service.GetTablesLinkedToGame(selectedGame["id"]);
             //}
+
             var fullTables = 0;
-            var emtyTables = new List<Guid>();
+            var emptyTables = new List<Guid>();
             foreach (var table in Tables)
             {
                 var peopleOnTable = _service.GetUsersInTableById(table.id.ToString()).Count();
@@ -52,16 +51,16 @@ namespace VirtPub.Pages
                 }
                 if (peopleOnTable == 0)
                 {
-                    emtyTables.Add(table.id);
+                    emptyTables.Add(table.id);
                 }
             }
 
 
-                for (int i = 0; i < emtyTables.Count()-1; i++)
-                {
+            for (int i = 0; i < emptyTables.Count() - 1; i++)
+            {
 
-                    await _tableService.RemoveTableByID(emtyTables[i]);
-                }
+                await _tableService.RemoveTableByID(emptyTables[i]);
+            }
 
             Tables = await _tableService.GetTablesLinkedToGame(selectedGame["id"]);
 

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using VirtPub.Models;
 
 namespace VirtPub.Services
@@ -11,27 +9,16 @@ namespace VirtPub.Services
     public class UserService
     {
         private HttpClient Client { get; }
-        private readonly IConfiguration _configuration;
-        private static List<ConnectedUser> users = new List<ConnectedUser>();
-        public UserService(HttpClient client, IConfiguration configuration)
+        private static readonly List<ConnectedUser> Users = new List<ConnectedUser>();
+        public UserService(HttpClient client, IHttpClientFactory clientFactory)
         {
-            HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-            client = new HttpClient(clientHandler);
-
-            _configuration = configuration;
-            Client = client;
-
-            var baseAdress = _configuration.GetValue<Uri>("DevBackendURI");
-            client.BaseAddress = baseAdress == null ? _configuration.GetValue<Uri>("ProdBackendURI") : baseAdress;
-            
-            _configuration = configuration;
+            client = clientFactory.CreateClient("api");
             Client = client;
         }
+
         public List<ConnectedUser> GetUsersInTableById(string group)
         {
-            return users.Where(x => x.Group == group).ToList();
+            return Users.Where(x => x.Group == group).ToList();
         }
 
         public void AddUserToUserList(string userName, string group, string connectionId)
@@ -40,11 +27,11 @@ namespace VirtPub.Services
             {
                 var isUserAdmin = IsTableWithoutAdmin(group);
 
-                var newUser = users.Where(z => z.UserName == userName).FirstOrDefault();
+                var newUser = Users.FirstOrDefault(z => z.UserName == userName);
 
                 if (newUser == null)
                 {
-                    users.Add(new ConnectedUser()
+                    Users.Add(new ConnectedUser()
                     {
                         UserName = userName,
                         ConnectionId = connectionId,
@@ -59,9 +46,9 @@ namespace VirtPub.Services
                     newUser.IsAdmin = isUserAdmin;
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                System.Console.WriteLine("Unable to add the user to the list: Users");
+                Console.WriteLine("Unable to add the user to the list: Users");
             }
         }
 
@@ -69,10 +56,10 @@ namespace VirtPub.Services
         {
             try
             {
-                int parsedScore = Int32.Parse(score);
-                users.Where(x => x.UserName == userName).First().Score = parsedScore;
+                var parsedScore = int.Parse(score);
+                Users.First(x => x.UserName == userName).Score = parsedScore;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return;
             }
@@ -82,37 +69,34 @@ namespace VirtPub.Services
         {
             try
             {
-                return users.Where(x => x.Group == group && x.IsAdmin == true).First();
+                return Users.First(x => x.Group == @group && x.IsAdmin == true);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return null;
             }
         }
 
-        private bool IsTableWithoutAdmin(string group)
+        private static bool IsTableWithoutAdmin(string group)
         {
-            if (users.Where(x => x.Group == group && x.IsAdmin == true).Count() == 0)
-                return true;
-
-            return false;
+            return !Users.Any(x => x.Group == @group && x.IsAdmin == true);
         }
 
         public void RemoveUserFromUserList(string userName)
         {
             try
             {
-                var userToRemove = users.Where(x => x.UserName == userName).First();
-                users.Remove(userToRemove);
+                var userToRemove = Users.First(x => x.UserName == userName);
+                Users.Remove(userToRemove);
 
-                if (userToRemove != null && userToRemove.IsAdmin && users.Where(x => x.Group == userToRemove.Group).Count() > 0)
+                if (userToRemove != null && userToRemove.IsAdmin && Users.Any(x => x.Group == userToRemove.Group))
                 {
-                    users.Where(x => x.Group == userToRemove.Group).FirstOrDefault().IsAdmin = true;
+                    Users.FirstOrDefault(x => x.Group == userToRemove.Group).IsAdmin = true;
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                System.Console.WriteLine("Unable to remove the user from the list: Users");
+                Console.WriteLine("Unable to remove the user from the list: Users");
             }
         }
     }
